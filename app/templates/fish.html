@@ -5,6 +5,20 @@
 {% block content %}
         <h2>Fish Fetcher</h2>
         <h3>Please select your hemisphere!</h3>
-        <p><a href="{{url_for('fish_n')}}">Northern</a> <a href="{{url_for('fish_s')}}">Southern</a></p> 
+        <p>Select your hemisphere:</p>
+        <form id="form1" action="/fish/" method="POST" enctype="multipart/form-data">
+            <select id="mySelect" name = "hemisphere">
+                <option value="northern">Northern</option>
+                <option value="southern">Southern</option>
+            </select>
+            <p>Select your timezone:</p>
+            <select id="mySelect" name = "timezone">
+                {% for timez in timezones %}
+                    <option value="{{timez[0]}}">{{timez[1] + ' ' + timez[2]}}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Submit">
+        </form>
+        <br>
         {% block fishtable %} {% endblock %}
 {% endblock %}

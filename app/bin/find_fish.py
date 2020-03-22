@@ -1,12 +1,14 @@
 from datetime import datetime
+import pytz
 import time
 
-def main(hemisphere):
-    if hemisphere == 'n':
+def main(hemisphere, tz):
+    if hemisphere == 'northern':
         fish_list = load_northern()
     else:
         fish_list = load_southern()
-    active_fishies = process_fish(fish_list, datetime.now())
+    active_fishies = process_fish(fish_list, datetime.now(pytz.timezone(tz)))
+    print(pytz.timezone(tz))
     return active_fishies
 
 def process_fish(fish_list, dt):
