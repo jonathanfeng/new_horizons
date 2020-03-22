@@ -1,17 +1,13 @@
 from datetime import datetime
 import time
-from pprint import pprint
 
-def main():
-    hemisphere = 'n'
+def main(hemisphere):
     if hemisphere == 'n':
         fish_list = load_northern()
     else:
         fish_list = load_southern()
     active_fishies = process_fish(fish_list, datetime.now())
-    print('These fishes be active now:')
-    pprint(active_fishies)
-
+    return active_fishies
 
 def process_fish(fish_list, dt):
     month = dt.month
@@ -23,7 +19,7 @@ def process_fish(fish_list, dt):
         good_month = test_seasonality(seasonality, month)
         good_time = test_time(times, hour)
         if good_month and good_time:
-            good_fish.append([fish[0], fish[2], int(fish[4].replace(',',''))])
+            good_fish.append([fish[0], fish[2], int(fish[4].replace(',','')), fish[1], fish[3]])
     return sorted(good_fish, key=lambda x:x[2],reverse=True)
      
 def test_seasonality(seasonality, month):
@@ -225,9 +221,4 @@ def load_dict():
         'Nov' : 11,
         'Dec' : 12
     }
-
-if __name__ == "__main__":
-    main()
-
-
 

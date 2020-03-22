@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+
+{% block content %}
+        <h2>Fish Fetcher</h2>
+        <h3>Please select your hemisphere!</h3>
+        <p><a href="{{url_for('fish_n')}}">Northern</a> <a href="{{url_for('fish_s')}}">Southern</a></p> 
+        <br>
+        {% block fishtable %} {% endblock %}
+{% endblock %}
