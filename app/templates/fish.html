@@ -6,11 +6,11 @@
         <h2>Fish Fetcher</h2>
         <h3>Please select your hemisphere!</h3>
         <p>Select your hemisphere:</p>
-        <form id="form1" action="/fish/" method="POST" enctype="multipart/form-data">
-            <select id="mySelect" name = "hemisphere">
-                <option value="northern">Northern</option>
-                <option value="southern">Southern</option>
-            </select>
+        <form id="form1" action="/fish" method="POST" enctype="multipart/form-data">
+            <input type="radio" id="northern" name="hemisphere" value="northern">
+            <label for="northern">Northern</label><br>
+            <input type="radio" id="southern" name="hemisphere" value="southern">
+            <label for="southern">Southern</label><br>
             <p>Select your timezone:</p>
             <select id="mySelect" name = "timezone">
                 {% for timez in timezones %}

@@ -8,7 +8,6 @@ def main(hemisphere, tz):
     else:
         fish_list = load_southern()
     active_fishies = process_fish(fish_list, datetime.now(pytz.timezone(tz)))
-    print(pytz.timezone(tz))
     return active_fishies
 
 def process_fish(fish_list, dt):
@@ -21,6 +20,9 @@ def process_fish(fish_list, dt):
         good_month = test_seasonality(seasonality, month)
         good_time = test_time(times, hour)
         if good_month and good_time:
+            if fish[3] != 'All day':
+                fish_times = fish[3].split(' - ')
+                fish[3] = fish_times[0] + ':00 - ' + fish_times[1] + ':00'
             good_fish.append([fish[0], fish[2], int(fish[4].replace(',','')), fish[1], fish[3]])
     return sorted(good_fish, key=lambda x:x[2],reverse=True)
      

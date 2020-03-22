@@ -13,12 +13,8 @@ tz = ''
 def index():
     return render_template('index.html')
 
-@app.route('/fish')
+@app.route('/fish', methods=['GET', 'POST'])
 def fish():
-    return render_template('fish.html', timezones = get_timezones())
-
-@app.route('/fish/', methods=['GET', 'POST'])
-def selected_fish():
     if request.method == 'POST':
         hemisphere = request.form.get('hemisphere', None)
         timezone = request.form.get('timezone', None)
@@ -26,3 +22,5 @@ def selected_fish():
             fish_list = fishes(hemisphere, timezone)
             return render_template('fish-n.html', hemisphere=hemisphere, timezones = get_timezones(), timezone=timezone, fish_list = fish_list)
         return render_template('fish.html', timezones = get_timezones(), hemisphere=hemisphere, timezone=timezone)
+    else:
+        return render_template('fish.html', timezones=get_timezones())
