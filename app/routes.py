@@ -21,6 +21,6 @@ def fish():
         if hemisphere != None and timezone != None:
             fish_list = fishes(hemisphere, timezone)
             return render_template('fish-n.html', hemisphere=hemisphere, timezones = get_timezones(), timezone=timezone, fish_list = fish_list)
-        return render_template('fish.html', timezones = get_timezones(), hemisphere=hemisphere, timezone=timezone)
+        return render_template('fish.html', timezones = get_timezones())
     else:
         return render_template('fish.html', timezones=get_timezones())
