@@ -1,1 +1,1 @@
-web: gunicorn critter_finder:app
+web: gunicorn critter_chase:app

@@ -1,1 +1,1 @@
-FLASK_APP=critter_finder.py
+FLASK_APP=critter_chase.py
