@@ -3,10 +3,18 @@
 {% extends "base.html" %}
 
 {% block content %}
+        {% if not timezone %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                document.getElementById('mySelect').value = moment.tz.guess();
+                document.form1.submit();
+            });
+        </script>
+        {% endif %}
         <h2>Fish Fetcher</h2>
         <h3>Please select your hemisphere!</h3>
         <p>Select your hemisphere:</p>
-        <form id="form1" action="/fish" method="POST" enctype="multipart/form-data">
+        <form id="form1" name="form1" action="/fish" method="POST" enctype="multipart/form-data">
             <input type="radio" id="northern" name="hemisphere" value="northern" checked>
             <label for="northern">Northern</label><br>
             <input type="radio" id="southern" name="hemisphere" value="southern" onchange="this.form.submit()">
