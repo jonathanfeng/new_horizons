@@ -1,1 +1,1 @@
-FLASK_APP=new_horizons.py
+FLASK_APP=main.py

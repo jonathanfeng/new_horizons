@@ -1,1 +1,1 @@
-web: gunicorn new_horizons:app
+web: gunicorn main:app
