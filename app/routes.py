@@ -19,4 +19,5 @@ def fish_n():
 
 @app.route('/fish/s')
 def fish_s():
-    return 'south'
+    fish_list = find_fish.main('s')
+    return render_template('fish-n.html', fish_list = fish_list)
