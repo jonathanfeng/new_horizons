@@ -4,6 +4,8 @@ import csv
 
 def main(tz, fish_list):
     active_fishies = process_fish(fish_list, datetime.now(pytz.timezone(tz)))
+    for v in active_fishies:
+        v[2] = f"{v[2]:,d}"
     return active_fishies
 
 def process_fish(fish_list, dt):

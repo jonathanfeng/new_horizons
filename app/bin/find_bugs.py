@@ -4,6 +4,8 @@ import csv
 
 def main(tz, bug_list):
     active_bugs = process_bugs(bug_list, datetime.now(pytz.timezone(tz)))
+    for v in active_bugs:
+        v[2] = f"{v[2]:,d}"
     return active_bugs
 
 def process_bugs(bugs_list, dt):
