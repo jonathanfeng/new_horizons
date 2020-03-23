@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+{% extends "bugs.html" %}
+
+{% block bugtable %}
+    <p>This be all the bugs:</p>
+    <table class="centered thick-border">
+        <tr>
+            <th>Bug</th>
+            <th>Location</th>
+            <th>Price</th>
+            <th>Seasonality</th>
+            <th>Times Active</th>
+        </tr>
+        {% for bug in bugs_list %}
+            <tr>
+                <td>{{bug[0]}}</td>
+                <td>{{bug[1]}}</td>
+                <td>{{bug[2]}}</td>
+                <td>{{bug[3]}}</td>
+                <td>{{bug[4]}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+

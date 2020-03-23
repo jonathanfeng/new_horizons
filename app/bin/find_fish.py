@@ -1,6 +1,5 @@
 from datetime import datetime
 import pytz
-import time
 
 def main(hemisphere, tz):
     if hemisphere == 'Northern':
