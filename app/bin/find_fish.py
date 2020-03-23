@@ -3,7 +3,7 @@ import pytz
 import time
 
 def main(hemisphere, tz):
-    if hemisphere == 'northern':
+    if hemisphere == 'Northern':
         fish_list = load_northern()
     else:
         fish_list = load_southern()
