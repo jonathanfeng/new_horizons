@@ -40,7 +40,7 @@ def test_seasonality(seasonality, month):
                     else:
                         return False
                 else:
-                    if (month >= m1 and month <= 12) or (month < m2 and month >= 1):
+                    if (month >= m1 and month <= 12) or (month <= m2 and month >= 1):
                         return True
                     else:
                         return False

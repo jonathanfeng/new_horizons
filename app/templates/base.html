@@ -1,20 +1,28 @@
-<!DOCTYPE html>
+{% extends 'bootstrap/base.html' %}
 
-<meta charset="UTF-8">
+{% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.28/moment-timezone-with-data.min.js"></script>
+{% endblock %}
+{% block html_attribs %} lang="en"{% endblock %}
+{% block title %} {% if title %}{{title}} - Critter Chaser{% else %}Welcome to Critter Chaser{% endif %} {% endblock %}
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+{% block navbar %}
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{{url_for('index')}}">Critter Chaser</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="{{url_for('fish')}}">Fish</a></li>
+                <li><a href="{{url_for('bugs')}}">Bugs</a></li>
+            </ul>
+        </div>
+    </div>
+  </nav>
+{% endblock %}
 
-<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='main.css')}}">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.28/moment-timezone-with-data.min.js"></script>
-
-<html>
-    <head>
-        <title>Critter Chaser</title>
-    </head>
-    <body>
-        <div><a href="{{url_for('index')}}">Critter Chaser:</a> <a href="{{url_for('fish')}}">Fish</a> <a href="{{url_for('bugs')}}">Bugs</a></div>
-        <hr>
-        {% block content %} {% endblock %}
-    </body>
-</html>
+{% block content %}
+  {% block app_content %}{% endblock %}
+{% endblock %}

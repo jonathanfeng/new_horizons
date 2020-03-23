@@ -1,30 +1,30 @@
-<!DOCTYPE html>
-
 {% extends "base.html" %}
 
-{% block content %}
-        {% if not timezone %}
+{% block app_content %}
+<div class="container">
+    {% if not timezone %}
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('mySelect').value = moment.tz.guess();
                 document.form1.submit();
             });
         </script>
-        {% endif %}
-        <h2>Fish Fetcher</h2>
-        <h3>Please select your hemisphere!</h3>
-        <p>Select your hemisphere:</p>
-        <form id="form1" name="form1" action="/fish" method="POST" enctype="multipart/form-data">
-            <input type="radio" id="Northern" name="hemisphere" value="Northern" onchange="this.form.submit()" {% if hemisphere == 'Northern' or not hemisphere %} checked {% endif %}>
-            <label for="Northern">Northern</label><br>
-            <input type="radio" id="Southern" name="hemisphere" value="Southern" onchange="this.form.submit()" {% if hemisphere == 'Southern' %} checked {% endif %}>
-            <label for="Southern">Southern</label><br>
-            <p>Select your timezone:</p>
-            <select id="mySelect" onchange="this.form.submit()" name = "timezone">
-                {% for timez in timezones %}
-                    <option value="{{timez[0]}}" {% if timez[0] == timezone %} selected {% endif %}>{{timez[0] + ' ' + timez[1]}}</option>
-                {% endfor %}
-            </select>
-        </form>
-        {% block fishtable %} {% endblock %}
+    {% endif %}
+    <h2>Fish Fetcher</h2>
+    <h3>Please select your hemisphere!</h3>
+    <p>Select your hemisphere:</p>
+    <form id="form1" name="form1" action="/fish" method="POST" enctype="multipart/form-data">
+        <input type="radio" id="Northern" name="hemisphere" value="Northern" onchange="this.form.submit()" {% if hemisphere == 'Northern' or not hemisphere %} checked {% endif %}>
+        <label for="Northern">Northern</label><br>
+        <input type="radio" id="Southern" name="hemisphere" value="Southern" onchange="this.form.submit()" {% if hemisphere == 'Southern' %} checked {% endif %}>
+        <label for="Southern">Southern</label><br>
+        <select id="mySelect" onchange="this.form.submit()" name = "timezone">
+            {% for timez in timezones %}
+                <option value="{{timez[0]}}" {% if timez[0] == timezone %} selected {% endif %}>{{timez[0] + ' ' + timez[1]}}</option>
+            {% endfor %}
+        </select>
+    </form>
+    {% block fish_table %} {% endblock %}
+</div>
+
 {% endblock %}
