@@ -2,23 +2,26 @@
 
 {% block fish_table %}
     <h4>This be all the fishes:</h4>
-    <table class="table table-bordered">
-        <tr>
-            <th>Fish</th>
-            <th>Location</th>
-            <th>Seasonality</th>
-            <th>Times Active</th>
-            <th>Price</th>
-        </tr>
-        {% for fish in fish_list %}
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover table-striped">
             <tr>
-                <td>{{fish[0]}}</td>
-                <td>{{fish[1]}}</td>
-                <td>{{fish[3]}}</td>
-                <td>{{fish[4]}}</td>
-                <td>{{fish[2]}}</td>
+                <th>Fish</th>
+                <th>Location</th>
+                <th>Shadow Size</th>
+                <th>Seasonality</th>
+                <th>Times Active</th>
+                <th>Price</th>
             </tr>
-        {% endfor %}
-    </table>
+            {% for fish in fish_list %}
+                <tr>
+                    <td>{{fish[0]}}</td>
+                    <td>{{fish[2]}}</td>
+                    <td>{{fish[3]}}</td>
+                    <td>{{fish[5]}}</td>
+                    <td>{{fish[4]}}</td>
+                    <td>{{fish[1]}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endblock %}
-

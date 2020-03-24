@@ -1,12 +1,11 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-<div class='container'>
-    <h2>Welcome to the Critter Finder!</h2>
-    <h5>Here you can find what critters are available to you and where to find them!<h5>
-    <a href="{{url_for('fish')}}">Click here to look at fishes!</a>
-    <br>
-    <a href="{{url_for('bugs')}}">Click here to look at bugs!</a>
-</div>
-
+{{super()}}
+<div class="jumbotron">
+    <h1>Welcome to Critter Finder!</h1>
+    <p>Here you can find what critters are available to you at the current time and where to find them!</p>
+    <p><a class="btn btn-default" href="{{url_for('fish')}}" role="button">Fish</a></p>
+    <p><a class="btn btn-default" href="{{url_for('bugs')}}" role="button">Bugs</a></p>
+  </div>
 {% endblock %}

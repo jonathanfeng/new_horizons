@@ -1,28 +1,45 @@
 {% extends 'bootstrap/base.html' %}
 
 {% block scripts %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.28/moment-timezone-with-data.min.js"></script>
+{{super()}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.28/moment-timezone-with-data.min.js"></script>
+{% endblock %}
+{% block head %}
+{{super()}}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-touch-icon.png')}}">
+<link rel="icon" type="image/png" sizes="192x192"  href="{{ url_for('static', filename='android-icon-192x192.png')}}">
 {% endblock %}
 {% block html_attribs %} lang="en"{% endblock %}
-{% block title %} {% if title %}{{title}} - Critter Chaser{% else %}Welcome to Critter Chaser{% endif %} {% endblock %}
+{% block title %} {% if title %}{{title}} - Critter Chaser{% else %}Welcome to Critter Chaser!{% endif %} {% endblock %}
 
 {% block navbar %}
 <nav class="navbar navbar-default">
     <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="{{url_for('index')}}">Critter Chaser</a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li><a href="{{url_for('fish')}}">Fish</a></li>
-                <li><a href="{{url_for('bugs')}}">Bugs</a></li>
-            </ul>
-        </div>
-    </div>
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{{ url_for('index') }}">Critter Chaser</a>
+      </div>
+  
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+        <li><a href="{{url_for('fish')}}">Fish</a></li>
+        <li><a href="{{url_for('bugs')}}">Bugs</a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
   </nav>
 {% endblock %}
 
 {% block content %}
-  {% block app_content %}{% endblock %}
+  <div class=container>{% block app_content %}{% endblock %}</div>
 {% endblock %}
