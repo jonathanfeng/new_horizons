@@ -2,23 +2,24 @@
 
 {% block bug_table %}
     <h4>This be all the bugs:</h4>
-    <table class="table table-bordered">
-        <tr>
-            <th>Bug</th>
-            <th>Location</th>
-            <th>Seasonality</th>
-            <th>Times Active</th>
-            <th>Price</th>
-        </tr>
-        {% for bug in bugs_list %}
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover table-striped">
             <tr>
-                <td>{{bug[0]}}</td>
-                <td>{{bug[1]}}</td>
-                <td>{{bug[3]}}</td>
-                <td>{{bug[4]}}</td>
-                <td>{{bug[2]}}</td>
+                <th>Bug</th>
+                <th>Location</th>
+                <th>Seasonality</th>
+                <th>Times Active</th>
+                <th>Price</th>
             </tr>
-        {% endfor %}
-    </table>
+            {% for bug in bugs_list %}
+                <tr>
+                    <td>{{bug[0]}}</td>
+                    <td>{{bug[2]}}</td>
+                    <td>{{bug[4]}}</td>
+                    <td>{{bug[3]}}</td>
+                    <td>{{bug[1]}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endblock %}
-
