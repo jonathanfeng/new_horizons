@@ -21,7 +21,7 @@ flask run
 
 Then go to [localhost:5000](http://localhost:5000) to visit the web app!\
 
-It is currently hosted on [Heroku](critter-catcher.herokuapp.com) on a Hobby dyno!
+It is currently hosted on [Heroku](https://critter-catcher.herokuapp.com) on a Hobby dyno!
 
 
 ## Contributing
