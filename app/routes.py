@@ -28,10 +28,10 @@ def fish():
                 fish_list = find_fish.main(timezone, northern_fishes)
             else:
                 fish_list = find_fish.main(timezone, southern_fishes)
-            return render_template('fish-table.html', hemisphere=hemisphere, timezones=get_timezones(), timezone=timezone, fish_list=fish_list, title='Fish Fetcher')
-        return render_template('fish.html', timezones=get_timezones(), title='Fish Fetcher')
+            return render_template('critter-table.html', hemisphere=hemisphere, timezones=get_timezones(), timezone=timezone, critter_list=fish_list, title='Fish Fetcher', critterType='fish')
+        return render_template('critter.html', timezones=get_timezones(), title='Fish Fetcher', critterType='fish')
     else:
-        return render_template('fish.html', timezones=get_timezones(), title='Fish Fetcher')
+        return render_template('critter.html', timezones=get_timezones(), title='Fish Fetcher', critterType='fish')
 
 @app.route('/bugs', methods=['GET', 'POST'])
 def bugs():
@@ -43,10 +43,10 @@ def bugs():
                 bugs_list = find_bugs.main(timezone, northern_bugs)
             else:
                 bugs_list = find_bugs.main(timezone, southern_bugs)
-            return render_template('bugs-table.html', hemisphere=hemisphere, timezones=get_timezones(), timezone=timezone, bugs_list=bugs_list, title='Bug Bounties')
-        return render_template('bugs.html', timezones=get_timezones(), title='Bug Bounties')
+            return render_template('critter-table.html', hemisphere=hemisphere, timezones=get_timezones(), timezone=timezone, critter_list=bugs_list, title='Bug Bounties', critterType='bugs')
+        return render_template('critter.html', timezones=get_timezones(), title='Bug Bounties', critterType='bugs')
     else:
-        return render_template('bugs.html', timezones=get_timezones(), title='Bug Bounties')
+        return render_template('critter.html', timezones=get_timezones(), title='Bug Bounties', critterType='bugs')
 
 @app.route('/favicon.ico')
 def favicon():
