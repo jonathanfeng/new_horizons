@@ -7,13 +7,22 @@
 {% endblock %}
 {% block head %}
 {{super()}}
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H49DF1VGCR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-H49DF1VGCR');
+</script>
 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 <link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-touch-icon.png')}}">
 <link rel="icon" type="image/png" sizes="192x192"  href="{{ url_for('static', filename='android-icon-192x192.png')}}">
+
 {% endblock %}
 {% block html_attribs %} lang="en"{% endblock %}
-{% block title %} {% if title %}{{title}} - Critter Chaser{% else %}Welcome to Critter Chaser!{% endif %} {% endblock %}
+{% block title %} {% if title %}{{title}} - Critter Catcher{% else %}Welcome to Critter Catcher!{% endif %} {% endblock %}
 
 {% block navbar %}
 <nav class="navbar navbar-default">
@@ -26,7 +35,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="{{ url_for('index') }}">Critter Chaser</a>
+        <a class="navbar-brand" href="{{ url_for('index') }}">Critter Catcher</a>
       </div>
   
       <!-- Collect the nav links, forms, and other content for toggling -->
