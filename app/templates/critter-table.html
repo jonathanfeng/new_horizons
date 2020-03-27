@@ -5,7 +5,11 @@
     <div class="table-responsive">
         <table class="table table-bordered table-hover table-striped">
             <tr>
+                {% if critterType == 'fish' %}
                 <th>Fish</th>
+                {% else %}
+                <th>Bugs</th>
+                {% endif %}
                 <th>Location</th>
                 {% if critterType == 'fish' %}
                 <th>Shadow Size</th>
