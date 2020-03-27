@@ -1,0 +1,31 @@
+{% extends "critter.html" %}
+
+{% block critter_table %}
+    <h4>This be all the {% if critterType =='fish' %}fishes{% else %}{{critterType}}{% endif %}:</h4>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover table-striped">
+            <tr>
+                <th>Fish</th>
+                <th>Location</th>
+                {% if critterType == 'fish' %}
+                <th>Shadow Size</th>
+                {% endif %}
+                <th>Seasonality</th>
+                <th>Times Active</th>
+                <th>Price</th>
+            </tr>
+            {% for critter in critter_list %}
+                <tr>
+                    <td>{{critter[0]}}</td>
+                    <td>{{critter[2]}}</td>
+                    {% if critterType == 'fish' %}
+                    <td>{{critter[5]}}</td>
+                    {% endif %}
+                    <td>{{critter[4]}}</td>
+                    <td>{{critter[3]}}</td>
+                    <td>{{critter[1]}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

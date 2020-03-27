@@ -32,7 +32,7 @@ def process_fish(fish_list, dt):
             if fish_times.lower() != 'all day':
                 fish_times = clean_times(fish_times)
             seasonality = clean_months(seasonality)
-            good_fish.append([name, int(price.replace(',','')), location, shadow, fish_times, seasonality])
+            good_fish.append([name, int(price.replace(',','')), location, fish_times, seasonality, shadow])
     return sorted(good_fish, key=lambda x:x[1],reverse=True)
 
 def clean_times(fish_times):
@@ -68,20 +68,16 @@ def clean_months(seasonality):
                 # add months to output list
                 ranges.append((seasonality[start], seasonality[i]))
                 start = i+1
-        if ranges[0][0] == 'jan' and ranges[-1][1] == 'dec':
+        if ranges[0][0] == 'Jan' and ranges[-1][1] == 'Dec':
             ranges[0] = (ranges[-1][0], ranges[0][1])
             ranges.pop()
         months = [range_str(rng) for rng in ranges]
-        return_month = months[0]
-        if len(months) > 1:
-            for month in months[1:]:
-                return_month += ", " + month
-        return return_month
+        return ', '.join(months)
 
 def range_str(rng):
     if rng[0] == rng[1]:
         return rng[0]
-    return '{}-{}'.format(rng[0], rng[1])
+    return '{} - {}'.format(rng[0], rng[1])
 
 def nxt(month):
     mos = list(load_dict().keys())
