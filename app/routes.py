@@ -3,6 +3,7 @@ import os
 from app import app
 from app.bin import find_fish
 from app.bin import find_bugs
+from app.bin import find_sea_creatures
 from app.bin.get_tz import get_timezones
 
 from datetime import datetime
@@ -11,7 +12,9 @@ northern_fishes = find_fish.load_northern()
 southern_fishes = find_fish.load_southern()
 northern_bugs = find_bugs.load_northern()
 southern_bugs = find_bugs.load_southern()
-print('Fish and bugs loaded.')
+northern_sea_creatures = find_sea_creatures.load_northern()
+southern_sea_creatures = find_sea_creatures.load_southern()
+print('Fish, bugs, and sea creatures loaded.')
 
 @app.route('/')
 @app.route('/index')
@@ -47,6 +50,21 @@ def bugs():
         return render_template('critter.html', timezones=get_timezones(), title='Bug Bounties', critterType='bugs')
     else:
         return render_template('critter.html', timezones=get_timezones(), title='Bug Bounties', critterType='bugs')
+
+@app.route('/sea_creatures', methods=['GET', 'POST'])
+def sea_creatures():
+    if request.method == 'POST':
+        hemisphere = request.form.get('hemisphere', None)
+        timezone = request.form.get('timezone', None)
+        if hemisphere != None and timezone != None:
+            if hemisphere == 'Northern':
+                sea_creatures_list = find_sea_creatures.main(timezone, northern_sea_creatures)
+            else:
+                sea_creatures_list = find_sea_creatures.main(timezone, southern_sea_creatures)
+            return render_template('critter-table.html', hemisphere=hemisphere, timezones=get_timezones(), timezone=timezone, critter_list=sea_creatures_list, title='Sea Creature Search', critterType='sea_creatures')
+        return render_template('critter.html', timezones=get_timezones(), title='Sea Creature Search', critterType='sea_creatures')
+    else:
+        return render_template('critter.html', timezones=get_timezones(), title='Sea Creature Search', critterType='sea_creatures')
 
 @app.route('/favicon.ico')
 def favicon():

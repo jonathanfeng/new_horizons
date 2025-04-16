@@ -4,6 +4,42 @@
 {{super()}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.28/moment-timezone-with-data.min.js"></script>
+
+<script>
+// Update the clock every second - exposed globally so it can be called from other templates
+window.updateClock = function() {
+    const clockElement = document.getElementById('navbar-clock');
+    if (!clockElement) return;
+    
+    // Get selected timezone or use browser's timezone
+    let timezone = localStorage.getItem('selected_timezone');
+    if (!timezone) {
+        timezone = moment.tz.guess();
+    }
+    
+    // Format time with timezone abbreviated name
+    const now = moment().tz(timezone);
+    const timeString = now.format('h:mm:ss A');
+    const dateString = now.format('ddd, MMM D');
+    const timezoneAbbr = now.format('z');
+    
+    // Update clock elements
+    document.getElementById('clock-time').textContent = timeString;
+    document.getElementById('clock-date').textContent = dateString;
+    document.getElementById('clock-timezone').textContent = timezoneAbbr;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Start the clock
+    updateClock();
+    setInterval(updateClock, 1000);
+    
+    // Initialize tooltip for clock
+    if (typeof $().tooltip === 'function') {
+        $('#navbar-clock-container').tooltip();
+    }
+});
+</script>
 {% endblock %}
 {% block head %}
 {{super()}}
@@ -19,7 +55,212 @@
 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 <link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-touch-icon.png')}}">
 <link rel="icon" type="image/png" sizes="192x192"  href="{{ url_for('static', filename='android-icon-192x192.png')}}">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='custom.css') }}">
 
+<style>
+/* Animal Crossing inspired color palette */
+:root {
+    --ac-green: #62c76e;
+    --ac-light-green: #a6e29e;
+    --ac-dark-green: #45a053;
+    --ac-brown: #8a543a;
+    --ac-blue: #3fc0eb;
+    --ac-tan: #f8e9b5;
+    --ac-yellow: #f0dc65;
+}
+
+/* Overall theme */
+body {
+    background-color: #f5f9f5;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Navbar theming */
+.navbar-default {
+    background-color: var(--ac-green);
+    border-color: var(--ac-dark-green);
+    border-radius: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-default .navbar-brand,
+.navbar-default .navbar-nav > li > a {
+    color: white;
+    font-weight: 500;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-nav > li > a:hover {
+    color: var(--ac-tan);
+    background-color: var(--ac-dark-green);
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: white;
+}
+
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+    background-color: var(--ac-dark-green);
+}
+
+/* Panel styling */
+.panel-default {
+    border-color: var(--ac-light-green);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.panel-default > .panel-heading {
+    background-color: var(--ac-light-green);
+    border-color: var(--ac-green);
+    color: #333;
+}
+
+/* Button styling */
+.btn-default {
+    background-color: white;
+    border-color: var(--ac-green);
+    color: var(--ac-dark-green);
+}
+
+.btn-default.active,
+.btn-default:hover,
+.btn-default:active,
+.btn-default:focus {
+    background-color: var(--ac-green) !important;
+    border-color: var(--ac-dark-green) !important;
+    color: white !important;
+}
+
+/* Table styling */
+.table-bordered {
+    border: 1px solid var(--ac-light-green);
+}
+
+.table-bordered > thead > tr > th {
+    background-color: var(--ac-light-green);
+    border-bottom: 2px solid var(--ac-green);
+    color: #333;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: rgba(166, 226, 158, 0.1);
+}
+
+.table-hover > tbody > tr:hover {
+    background-color: rgba(166, 226, 158, 0.2);
+}
+
+/* Clock styling */
+#navbar-clock-container {
+    display: inline-block;
+    position: relative;
+    margin-right: 15px;
+}
+
+#navbar-clock {
+    display: flex;
+    align-items: center;
+    background-color: var(--ac-dark-green);
+    border: 1px solid var(--ac-dark-green);
+    border-radius: 20px;
+    padding: 6px 12px;
+    color: white;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    cursor: default;
+    margin-top: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#navbar-clock:hover {
+    background-color: #3d8a48;
+}
+
+.clock-icon {
+    margin-right: 8px;
+    color: var(--ac-yellow);
+}
+
+.clock-content {
+    display: flex;
+    flex-direction: column;
+}
+
+#clock-time {
+    font-size: 15px;
+    line-height: 1.2;
+    font-weight: 600;
+    color: white;
+}
+
+#clock-date {
+    font-size: 12px;
+    opacity: 0.9;
+    color: var(--ac-tan);
+}
+
+#clock-timezone {
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    margin-left: 8px;
+    padding: 0 4px;
+    background-color: var(--ac-blue);
+    border-radius: 3px;
+    align-self: center;
+}
+
+@media (max-width: 767px) {
+    #navbar-clock-container {
+        display: block;
+        margin: 0;
+        text-align: center;
+        padding: 10px 0;
+        border-top: 1px solid var(--ac-dark-green);
+    }
+    
+    #navbar-clock {
+        display: inline-flex;
+        margin: 0;
+    }
+}
+
+/* Form controls */
+.form-control:focus {
+    border-color: var(--ac-green);
+    box-shadow: 0 0 8px rgba(98, 199, 110, 0.4);
+}
+
+/* Search input styling */
+.input-group-addon {
+    background-color: var(--ac-green);
+    border-color: var(--ac-green);
+    color: white;
+}
+
+/* Sortable table improvements */
+.sortable:hover {
+    background-color: var(--ac-green) !important;
+    color: white;
+    cursor: pointer;
+}
+
+.sortable.asc, .sortable.desc {
+    background-color: var(--ac-dark-green) !important;
+    color: white;
+}
+
+/* Highlight styling */
+.highlight {
+    background-color: var(--ac-yellow);
+    color: black;
+    border-radius: 2px;
+    padding: 0 2px;
+}
+</style>
 {% endblock %}
 {% block html_attribs %} lang="en"{% endblock %}
 {% block title %} {% if title %}{{title}} - Critter Catcher{% else %}Welcome to Critter Catcher!{% endif %} {% endblock %}
@@ -41,9 +282,22 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-        <li><a href="{{url_for('fish')}}">Fish</a></li>
-        <li><a href="{{url_for('bugs')}}">Bugs</a></li>
+          <li><a href="{{url_for('fish')}}">Fish</a></li>
+          <li><a href="{{url_for('bugs')}}">Bugs</a></li>
+          <li><a href="{{url_for('sea_creatures')}}">Sea Creatures</a></li>
         </ul>
+        <div class="navbar-right">
+          <div id="navbar-clock-container" data-toggle="tooltip" data-placement="bottom" title="Current time in your selected timezone. Critters shown are available now.">
+            <div id="navbar-clock">
+              <span class="clock-icon glyphicon glyphicon-time"></span>
+              <div class="clock-content">
+                <span id="clock-time"></span>
+                <span id="clock-date"></span>
+              </div>
+              <span id="clock-timezone"></span>
+            </div>
+          </div>
+        </div>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>

@@ -1,35 +1,354 @@
 {% extends "critter.html" %}
 
 {% block critter_table %}
-    <h4>This be all the {% if critterType =='fish' %}fishes{% else %}{{critterType}}{% endif %}:</h4>
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover table-striped">
-            <tr>
-                {% if critterType == 'fish' %}
-                <th>Fish</th>
-                {% else %}
-                <th>Bugs</th>
-                {% endif %}
-                <th>Location</th>
-                {% if critterType == 'fish' %}
-                <th>Shadow Size</th>
-                {% endif %}
-                <th>Seasonality</th>
-                <th>Times Active</th>
-                <th>Price</th>
-            </tr>
-            {% for critter in critter_list %}
-                <tr>
-                    <td>{{critter[0]}}</td>
-                    <td>{{critter[2]}}</td>
-                    {% if critterType == 'fish' %}
-                    <td>{{critter[5]}}</td>
-                    {% endif %}
-                    <td>{{critter[4]}}</td>
-                    <td>{{critter[3]}}</td>
-                    <td>{{critter[1]}}</td>
-                </tr>
-            {% endfor %}
-        </table>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>Available {% if critterType == 'fish' %}Fish{% elif critterType == 'bugs' %}Bugs{% elif critterType == 'sea_creatures' %}Sea Creatures{% endif %}</h4>
+            <p class="small text-muted">Currently available in your selected hemisphere and timezone</p>
+            
+            <!-- Search filter -->
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+                    <input type="text" id="searchFilter" class="form-control" placeholder="Search for critters...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default search-clear" type="button" title="Clear search">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-striped" id="critterTable">
+                    <thead>
+                        <tr>
+                            <th class="sortable" data-sort-type="text" data-sort-index="0">
+                                {% if critterType == 'fish' %}<span class="glyphicon glyphicon-tint"></span> Fish
+                                {% elif critterType == 'bugs' %}<span class="glyphicon glyphicon-bug"></span> Bugs
+                                {% elif critterType == 'sea_creatures' %}<span class="glyphicon glyphicon-tint"></span> Sea Creature
+                                {% endif %}
+                                <span class="sort-icon"></span>
+                            </th>
+                            {% if critterType != 'fish' %}
+                            <th class="sortable" data-sort-type="text" data-sort-index="1">
+                                <span class="glyphicon glyphicon-map-marker"></span> Location
+                                <span class="sort-icon"></span>
+                            </th>
+                            {% endif %}
+                            {% if critterType == 'fish' or critterType == 'sea_creatures' %}
+                            <th class="sortable" data-sort-type="text" data-sort-index="{% if critterType == 'sea_creatures' %}1{% else %}2{% endif %}">
+                                <span class="glyphicon glyphicon-resize-full"></span> Shadow Size
+                                <span class="sort-icon"></span>
+                            </th>
+                            {% endif %}
+                            {% if critterType == 'sea_creatures' %}
+                            <th class="sortable" data-sort-type="text" data-sort-index="2">
+                                <span class="glyphicon glyphicon-transfer"></span> Shadow Movement
+                                <span class="sort-icon"></span>
+                            </th>
+                            {% endif %}
+                            {% if critterType == 'fish' %}
+                            <th class="sortable" data-sort-type="text" data-sort-index="1">
+                                <span class="glyphicon glyphicon-map-marker"></span> Location
+                                <span class="sort-icon"></span>
+                            </th>
+                            {% endif %}
+                            <th class="sortable" data-sort-type="text" data-sort-index="{% if critterType == 'sea_creatures' %}3{% else %}2{% endif %}">
+                                <span class="glyphicon glyphicon-calendar"></span> Seasonality
+                                <span class="sort-icon"></span>
+                            </th>
+                            <th class="sortable" data-sort-type="text" data-sort-index="{% if critterType == 'sea_creatures' %}4{% else %}3{% endif %}">
+                                <span class="glyphicon glyphicon-time"></span> Times Active
+                                <span class="sort-icon"></span>
+                            </th>
+                            <th class="sortable" data-sort-type="number" data-sort-index="{% if critterType == 'sea_creatures' %}5{% else %}4{% endif %}">
+                                <span class="glyphicon glyphicon-usd"></span> Price
+                                <span class="sort-icon"></span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="critterTableBody">
+                        {% for critter in critter_list %}
+                            <tr>
+                                <td><strong>{{critter[0]}}</strong></td>
+                                {% if critterType != 'fish' %}
+                                <td>{{critter[2]}}</td>
+                                {% endif %}
+                                {% if critterType == 'fish' or critterType == 'sea_creatures' %}
+                                <td>{{critter[2 if critterType == 'sea_creatures' else 5]}}</td>
+                                {% endif %}
+                                {% if critterType == 'sea_creatures' %}
+                                <td>{{critter[3]}}</td>
+                                {% endif %}
+                                {% if critterType == 'fish' %}
+                                <td>{{critter[2]}}</td>
+                                {% endif %}
+                                <td>{{critter[4 if critterType != 'sea_creatures' else 5]}}</td>
+                                <td>{{critter[3 if critterType != 'sea_creatures' else 4]}}</td>
+                                <td>{{critter[1]}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div id="noResultsMessage" class="text-center" style="display:none;">
+                    <p>No critters match your search. Try a different term.</p>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <style>
+        .sortable {
+            cursor: pointer;
+            position: relative;
+        }
+        .sort-icon {
+            margin-left: 5px;
+        }
+        .sortable.asc .sort-icon:after {
+            content: "▲";
+            font-size: 10px;
+        }
+        .sortable.desc .sort-icon:after {
+            content: "▼";
+            font-size: 10px;
+        }
+        
+        /* No results message styling */
+        #noResultsMessage {
+            padding: 20px;
+            color: #8a543a;
+            background-color: #f8e9b5;
+            border-radius: 4px;
+            margin-top: 15px;
+            border: 1px solid #f0dc65;
+        }
+        
+        /* Clear search button styling */
+        .search-clear {
+            cursor: pointer;
+        }
+        
+        /* Sticky header for desktop */
+        @media (min-width: 768px) {
+            #critterTable thead {
+                position: sticky;
+                top: 0;
+                background-color: #f5f5f5;
+                z-index: 10;
+            }
+        }
+        
+        /* Better mobile experience */
+        @media (max-width: 767px) {
+            #critterTable {
+                font-size: 14px;
+            }
+            
+            .table-responsive {
+                border: none;
+                margin-bottom: 0;
+            }
+            
+            #critterTable th, #critterTable td {
+                padding: 8px 4px;
+            }
+            
+            .input-group {
+                width: 100%;
+            }
+        }
+        
+        /* Loading indicator styles */
+        .sorting-active tbody {
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+        
+        /* Highlight on hover for better feedback */
+        .sortable:hover {
+            background-color: rgba(0,0,0,0.05);
+        }
+        
+        /* Highlight active search */
+        .highlight {
+            background-color: rgba(255, 255, 0, 0.3);
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const table = document.getElementById('critterTable');
+            const tableBody = document.getElementById('critterTableBody');
+            const noResultsMessage = document.getElementById('noResultsMessage');
+            const searchFilter = document.getElementById('searchFilter');
+            
+            if (!table) return;
+            
+            // Save original table data for filtering
+            const originalRows = Array.from(tableBody.querySelectorAll('tr'));
+            
+            // Sorting functionality
+            const headers = table.querySelectorAll('th.sortable');
+            headers.forEach(header => {
+                header.addEventListener('click', function() {
+                    const sortType = this.getAttribute('data-sort-type');
+                    const columnIndex = parseInt(this.getAttribute('data-sort-index'));
+                    const isAsc = this.classList.contains('asc');
+                    
+                    // Remove asc/desc class from all headers
+                    headers.forEach(h => {
+                        h.classList.remove('asc', 'desc');
+                    });
+                    
+                    // Add appropriate class to clicked header
+                    this.classList.add(isAsc ? 'desc' : 'asc');
+                    
+                    // Add visual feedback when sorting
+                    table.classList.add('sorting-active');
+                    
+                    // Use setTimeout to allow the UI to update before sorting (better UX)
+                    setTimeout(() => {
+                        sortTable(columnIndex, !isAsc, sortType);
+                        table.classList.remove('sorting-active');
+                    }, 50);
+                });
+            });
+            
+            // Search filter functionality
+            if (searchFilter) {
+                searchFilter.addEventListener('input', function() {
+                    filterTable(this.value.trim().toLowerCase());
+                });
+                
+                // Clear button for mobile convenience
+                searchFilter.addEventListener('search', function() {
+                    filterTable(this.value.trim().toLowerCase());
+                });
+                
+                // Clear search button
+                document.querySelector('.search-clear').addEventListener('click', function() {
+                    searchFilter.value = '';
+                    filterTable('');
+                });
+            }
+            
+            function filterTable(searchTerm) {
+                // Reset to original rows if search is empty
+                if (!searchTerm) {
+                    while (tableBody.firstChild) {
+                        tableBody.removeChild(tableBody.firstChild);
+                    }
+                    
+                    originalRows.forEach(row => {
+                        // Remove any highlight from previous searches
+                        const cells = row.querySelectorAll('td');
+                        cells.forEach(cell => {
+                            cell.innerHTML = cell.innerHTML.replace(/<mark class="highlight">(.*?)<\/mark>/g, '$1');
+                        });
+                        
+                        tableBody.appendChild(row.cloneNode(true));
+                    });
+                    
+                    noResultsMessage.style.display = 'none';
+                    return;
+                }
+                
+                // Filter rows by search term
+                const filteredRows = originalRows.filter(row => {
+                    let matchFound = false;
+                    const cells = row.querySelectorAll('td');
+                    
+                    cells.forEach(cell => {
+                        const text = cell.textContent.toLowerCase();
+                        if (text.includes(searchTerm)) {
+                            matchFound = true;
+                        }
+                    });
+                    
+                    return matchFound;
+                });
+                
+                // Clear table
+                while (tableBody.firstChild) {
+                    tableBody.removeChild(tableBody.firstChild);
+                }
+                
+                // Show message if no results
+                if (filteredRows.length === 0) {
+                    noResultsMessage.style.display = 'block';
+                } else {
+                    noResultsMessage.style.display = 'none';
+                    
+                    // Add filtered rows with highlighting
+                    filteredRows.forEach(row => {
+                        const newRow = row.cloneNode(true);
+                        const cells = newRow.querySelectorAll('td');
+                        
+                        cells.forEach(cell => {
+                            const text = cell.textContent;
+                            // Use a regex to highlight all occurrences of the search term
+                            const highlightedText = text.replace(
+                                new RegExp(searchTerm, 'gi'), 
+                                match => `<mark class="highlight">${match}</mark>`
+                            );
+                            
+                            if (text.toLowerCase().includes(searchTerm)) {
+                                cell.innerHTML = highlightedText;
+                            }
+                        });
+                        
+                        tableBody.appendChild(newRow);
+                    });
+                }
+            }
+            
+            function sortTable(columnIndex, asc, sortType) {
+                const rows = Array.from(tableBody.querySelectorAll('tr'));
+                
+                // Sort rows
+                const sortedRows = rows.sort((rowA, rowB) => {
+                    const cellA = rowA.cells[columnIndex].textContent.trim();
+                    const cellB = rowB.cells[columnIndex].textContent.trim();
+                    
+                    if (sortType === 'number') {
+                        // Extract numbers for comparison
+                        const numA = parseInt(cellA.replace(/[^\d]/g, '')) || 0;
+                        const numB = parseInt(cellB.replace(/[^\d]/g, '')) || 0;
+                        return asc ? numA - numB : numB - numA;
+                    } else {
+                        // Text comparison
+                        return asc 
+                            ? cellA.localeCompare(cellB) 
+                            : cellB.localeCompare(cellA);
+                    }
+                });
+                
+                // Remove existing rows
+                while (tableBody.firstChild) {
+                    tableBody.removeChild(tableBody.firstChild);
+                }
+                
+                // Add sorted rows
+                sortedRows.forEach(row => {
+                    tableBody.appendChild(row);
+                });
+            }
+            
+            // Add touch-friendly feedback for mobile
+            if ('ontouchstart' in window) {
+                headers.forEach(header => {
+                    header.addEventListener('touchstart', function() {
+                        this.classList.add('active');
+                    });
+                    
+                    header.addEventListener('touchend', function() {
+                        this.classList.remove('active');
+                    });
+                });
+            }
+        });
+    </script>
 {% endblock %}
