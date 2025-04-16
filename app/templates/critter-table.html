@@ -1,35 +1,46 @@
 {% extends "critter.html" %}
 
 {% block critter_table %}
-    <h4>This be all the {% if critterType =='fish' %}fishes{% else %}{{critterType}}{% endif %}:</h4>
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover table-striped">
-            <tr>
-                {% if critterType == 'fish' %}
-                <th>Fish</th>
-                {% else %}
-                <th>Bugs</th>
-                {% endif %}
-                <th>Location</th>
-                {% if critterType == 'fish' %}
-                <th>Shadow Size</th>
-                {% endif %}
-                <th>Seasonality</th>
-                <th>Times Active</th>
-                <th>Price</th>
-            </tr>
-            {% for critter in critter_list %}
-                <tr>
-                    <td>{{critter[0]}}</td>
-                    <td>{{critter[2]}}</td>
-                    {% if critterType == 'fish' %}
-                    <td>{{critter[5]}}</td>
-                    {% endif %}
-                    <td>{{critter[4]}}</td>
-                    <td>{{critter[3]}}</td>
-                    <td>{{critter[1]}}</td>
-                </tr>
-            {% endfor %}
-        </table>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>Available {% if critterType =='fish' %}Fish{% else %}{{critterType|title}}{% endif %}</h4>
+            <p class="small text-muted">Currently available in your selected hemisphere and timezone</p>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr>
+                            {% if critterType == 'fish' %}
+                            <th><span class="glyphicon glyphicon-tint"></span> Fish</th>
+                            {% else %}
+                            <th><span class="glyphicon glyphicon-bug"></span> Bugs</th>
+                            {% endif %}
+                            <th><span class="glyphicon glyphicon-map-marker"></span> Location</th>
+                            {% if critterType == 'fish' %}
+                            <th><span class="glyphicon glyphicon-resize-full"></span> Shadow Size</th>
+                            {% endif %}
+                            <th><span class="glyphicon glyphicon-calendar"></span> Seasonality</th>
+                            <th><span class="glyphicon glyphicon-time"></span> Times Active</th>
+                            <th><span class="glyphicon glyphicon-usd"></span> Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for critter in critter_list %}
+                            <tr>
+                                <td><strong>{{critter[0]}}</strong></td>
+                                <td>{{critter[2]}}</td>
+                                {% if critterType == 'fish' %}
+                                <td>{{critter[5]}}</td>
+                                {% endif %}
+                                <td>{{critter[4]}}</td>
+                                <td>{{critter[3]}}</td>
+                                <td>{{critter[1]}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 {% endblock %}

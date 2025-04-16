@@ -4,8 +4,39 @@
 {{super()}}
 <div class="jumbotron">
     <h1>Welcome to Critter Catcher!</h1>
-    <p>Here you can find what critters are available to you at the current time and where to find them!</p>
-    <p><a class="btn btn-default" href="{{url_for('fish')}}" role="button">Fish</a></p>
-    <p><a class="btn btn-default" href="{{url_for('bugs')}}" role="button">Bugs</a></p>
-  </div>
+    <p class="lead">Here you can find what critters are available to you at the current time and where to find them!</p>
+    <div class="btn-group" role="group">
+        <a class="btn btn-default btn-lg" href="{{url_for('fish')}}">
+            <span class="glyphicon glyphicon-tint" aria-hidden="true"></span> Fish
+        </a>
+        <a class="btn btn-default btn-lg" href="{{url_for('bugs')}}">
+            <span class="glyphicon glyphicon-bug" aria-hidden="true"></span> Bugs
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Fish Collection</h3>
+            </div>
+            <div class="panel-body">
+                <p>Track and discover fish in different locations across your island. Find out which fish are currently available and their selling prices.</p>
+                <a href="{{url_for('fish')}}" class="btn btn-default">Go Fish</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Bug Collection</h3>
+            </div>
+            <div class="panel-body">
+                <p>Catch bugs throughout the day and night. Learn which bugs are active during the current time and how much they're worth.</p>
+                <a href="{{url_for('bugs')}}" class="btn btn-default">Find Bugs</a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

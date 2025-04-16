@@ -1,0 +1,109 @@
+/* Custom styling for Critter Catcher */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+.navbar {
+  background-color: #8ac74a;
+  border: none;
+  border-radius: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-default .navbar-brand,
+.navbar-default .navbar-nav > li > a {
+  color: #fff;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-nav > li > a:hover {
+  color: #f1f8e9;
+}
+
+.jumbotron {
+  background-color: #d4edda;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.jumbotron h1 {
+  color: #2e7d32;
+  margin-bottom: 1.5rem;
+}
+
+.btn-default {
+  background-color: #66bb6a;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 16px;
+  margin: 10px 10px 0 0;
+  transition: all 0.2s ease;
+}
+
+.btn-default:hover {
+  background-color: #43a047;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table.table {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+table.table th {
+  background-color: #8ac74a;
+  color: white;
+  border-color: #7cb342;
+}
+
+table.table-hover tbody tr:hover {
+  background-color: #f1f8e9;
+}
+
+.form-control {
+  border-radius: 4px;
+  box-shadow: none;
+  border: 1px solid #ced4da;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus {
+  border-color: #8ac74a;
+  box-shadow: 0 0 0 0.2rem rgba(138, 199, 74, 0.25);
+}
+
+.radio-inline {
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.page-header {
+  border-bottom: 2px solid #8ac74a;
+  margin-bottom: 20px;
+}
+
+.panel-default > .panel-heading {
+  background-color: #f1f8e9;
+  border-color: #dcedc8;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .jumbotron {
+    padding: 1.5rem;
+  }
+  
+  .table-responsive {
+    border: none;
+  }
+} 
