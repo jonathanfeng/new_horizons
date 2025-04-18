@@ -3,7 +3,7 @@
 {% block critter_table %}
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4>Available {% if critterType =='fish' %}Fish{% else %}{{critterType|title}}{% endif %}</h4>
+            <h4>Available {% if critterType == 'fish' %}Fish{% elif critterType == 'bugs' %}Bugs{% elif critterType == 'sea_creatures' %}Sea Creatures{% endif %}</h4>
             <p class="small text-muted">Currently available in your selected hemisphere and timezone</p>
         </div>
         <div class="panel-body">
@@ -11,14 +11,23 @@
                 <table class="table table-bordered table-hover table-striped">
                     <thead>
                         <tr>
-                            {% if critterType == 'fish' %}
-                            <th><span class="glyphicon glyphicon-tint"></span> Fish</th>
-                            {% else %}
-                            <th><span class="glyphicon glyphicon-bug"></span> Bugs</th>
-                            {% endif %}
+                            <th>
+                                {% if critterType == 'fish' %}<span class="glyphicon glyphicon-tint"></span> Fish
+                                {% elif critterType == 'bugs' %}<span class="glyphicon glyphicon-bug"></span> Bugs
+                                {% elif critterType == 'sea_creatures' %}<span class="glyphicon glyphicon-tint"></span> Sea Creature
+                                {% endif %}
+                            </th>
+                            {% if critterType != 'fish' %}
                             <th><span class="glyphicon glyphicon-map-marker"></span> Location</th>
-                            {% if critterType == 'fish' %}
+                            {% endif %}
+                            {% if critterType == 'fish' or critterType == 'sea_creatures' %}
                             <th><span class="glyphicon glyphicon-resize-full"></span> Shadow Size</th>
+                            {% endif %}
+                            {% if critterType == 'sea_creatures' %}
+                            <th><span class="glyphicon glyphicon-transfer"></span> Shadow Movement</th>
+                            {% endif %}
+                            {% if critterType == 'fish' %}
+                            <th><span class="glyphicon glyphicon-map-marker"></span> Location</th>
                             {% endif %}
                             <th><span class="glyphicon glyphicon-calendar"></span> Seasonality</th>
                             <th><span class="glyphicon glyphicon-time"></span> Times Active</th>
@@ -29,12 +38,20 @@
                         {% for critter in critter_list %}
                             <tr>
                                 <td><strong>{{critter[0]}}</strong></td>
+                                {% if critterType != 'fish' %}
                                 <td>{{critter[2]}}</td>
-                                {% if critterType == 'fish' %}
-                                <td>{{critter[5]}}</td>
                                 {% endif %}
-                                <td>{{critter[4]}}</td>
+                                {% if critterType == 'fish' or critterType == 'sea_creatures' %}
+                                <td>{{critter[2 if critterType == 'sea_creatures' else 5]}}</td>
+                                {% endif %}
+                                {% if critterType == 'sea_creatures' %}
                                 <td>{{critter[3]}}</td>
+                                {% endif %}
+                                {% if critterType == 'fish' %}
+                                <td>{{critter[2]}}</td>
+                                {% endif %}
+                                <td>{{critter[4 if critterType != 'sea_creatures' else 5]}}</td>
+                                <td>{{critter[3 if critterType != 'sea_creatures' else 4]}}</td>
                                 <td>{{critter[1]}}</td>
                             </tr>
                         {% endfor %}

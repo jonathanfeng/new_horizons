@@ -4,48 +4,48 @@ Atlas moth,3000,On Trees,19 - 4,-,-,-,1,1,1,1,1,1,-,-,-
 Bagworm,600,In trees,All day,1,1,1,1,1,1,1,1,1,1,1,1
 Banded dragonfly,"4,500",Flying,8 - 17,-,-,-,-,1,1,1,1,1,1,-,-
 Bell cricket,430,Hopping,17 - 8,-,-,-,-,-,-,-,-,1,1,-,-
-Blue weevil beetle,?,On Trees,All day,-,-,-,-,-,-,1,1,-,-,-,-
-Brown cicada,250,On Trees,8 - 17,-,-,-,-,-,-,1,1,-,-,-,-
-Centipede,300,Hit a rock,16 - 23,1,1,1,1,1,1,-,-,1,1,1,1
-Cicada shell,?,On Trees,All day,-,-,-,-,-,-,1,1,-,-,-,-
-Citrus Long-horned Beetle,350,On a tree stump,All day,1,1,1,1,1,1,1,1,1,1,1,1
-Common bluebottle,300,Flying,4 - 19,-,-,-,1,1,1,1,1,-,-,-,-
+Blue weevil beetle,800,On palm trees,All day,-,-,-,-,-,-,1,1,-,-,-,-
+Brown cicada,250,On trees (hardwood and cedar),8 - 17,-,-,-,-,-,-,1,1,-,-,-,-
+Centipede,300,From hitting rocks,16 - 23,1,1,1,1,1,1,-,-,1,1,1,1
+Cicada shell,10,On trees (hardwood and cedar),All day,-,-,-,-,-,-,1,1,-,-,-,-
+Citrus Long-horned Beetle,350,On tree stumps,All day,1,1,1,1,1,1,1,1,1,1,1,1
+Common bluebottle,300,Flying,4 - 19,-,-,-,1,1,1,1,1,-,-,-,-,-
 Common butterfly,160,Flying,4 - 19,1,1,1,1,1,1,-,-,1,1,1,1
 Cricket,130,Hopping,17 - 8,-,-,-,-,-,-,-,-,1,1,1,-
-Cyclommatus stag,?,On Trees,17 - 8,-,-,-,-,-,-,1,1,-,-,-,-
+Cyclommatus stag,8000,On palm trees,17 - 8,-,-,-,-,-,-,1,1,-,-,-,-
 Damselfly,500,Flying,All day,1,1,-,-,-,-,-,-,-,-,1,1
 Darner dragonfly,230,Flying,8 - 17,-,-,-,1,1,1,1,1,1,1,-,-
 Diving beetle,800,On Ponds and Rivers,8 - 19,-,-,-,-,1,1,1,1,1,-,-,-
-Drone beetle,200,On Tree,All day,-,-,-,-,-,1,1,1,-,-,-,-
-Dung beetle,?,On Ground,All day,1,1,-,-,-,-,-,-,-,-,-,1
+Drone beetle,200,On trees (any kind),All day,-,-,-,-,-,1,1,1,-,-,-,-
+Dung beetle,3000,Pushing snowballs,All day,1,1,-,-,-,-,-,-,-,-,-,1
 Earth-boring Dung Beetle,300,On Ground,All day,-,-,-,-,-,-,1,1,1,-,-,-
 Emperor butterfly,4000,Flying,17 - 8,1,1,1,-,-,1,1,1,1,-,-,1
-Evening cicada,?,On Trees,4 - 8 & 16 - 19,-,-,-,-,-,-,1,1,-,-,-,-
+Evening cicada,550,On trees (hardwood and cedar),4 - 8 & 16 - 19,-,-,-,-,-,-,1,1,-,-,-,-
 Firefly,300,Flying,19 - 4,-,-,-,-,-,1,-,-,-,-,-,-
 Flea,70,Villager's Heads,All day,-,-,-,1,1,1,1,1,1,1,1,-
 Fly,60,On trash or rotten items,All day,1,1,1,1,1,1,1,1,1,1,1,1
-Giant cicada,?,On Trees,8 - 17,-,-,-,-,-,-,1,1,-,-,-,-
-Giant stag,?,On Trees,23 - 8,-,-,-,-,-,-,1,1,-,-,-,-
+Giant cicada,500,On trees (hardwood and cedar),8 - 17,-,-,-,-,-,-,1,1,-,-,-,-
+Giant stag,10000,On trees (any kind),23 - 8,-,-,-,-,-,-,1,1,-,-,-,-
 Giant water bug,"2,000",On Ponds and Rivers,19 - 8,-,-,-,1,1,1,1,1,1,-,-,-
-Giraffe stag,?,On Trees,17 - 8,-,-,-,-,-,-,1,1,-,-,-,-
-Golden stag,?,On Trees,17 - 8,-,-,-,-,-,-,1,1,-,-,-,-
-Goliath beetle,?,On Trees,17 - 8,-,-,-,-,-,1,1,1,1,-,-,-
+Giraffe stag,12000,On palm trees,17 - 8,-,-,-,-,-,-,1,1,-,-,-,-
+Golden stag,12000,On palm trees,17 - 8,-,-,-,-,-,-,1,1,-,-,-,-
+Goliath beetle,8000,On palm trees,17 - 8,-,-,-,-,-,1,1,1,1,-,-,-
 Grasshopper,160,Hopping,8 - 17,-,-,-,-,-,-,1,1,1,-,-,-
-Great purple emperor,?,Flying,4 - 19,-,-,-,-,1,1,1,1,-,-,-,-
+Great purple emperor,3000,Flying,4 - 19,-,-,-,-,1,1,1,1,-,-,-,-
 Hermit crab,"1,000",Beach,19 - 8,1,1,1,1,1,1,1,1,1,1,1,1
 Honeybee,200,Flying,8 - 17,-,-,1,1,1,1,1,-,-,-,-,-
-Horned atlas,?,On Trees,17 - 8,-,-,-,-,-,-,1,1,-,-,-,-
-Horned dynastid,?,On Trees,17 - 8,-,-,-,-,-,-,1,1,-,-,-,-
-Horned elephant,?,On Trees,17 - 8,-,-,-,-,-,-,1,1,-,-,-,-
-Horned hercules,?,On Trees,17 - 8,-,-,-,-,-,-,1,1,-,-,-,-
-Jewel beetle,"2,400",On Trees,All day,-,-,-,1,1,1,1,1,-,-,-,-
+Horned atlas,8000,On palm trees,17 - 8,-,-,-,-,-,-,1,1,-,-,-,-
+Horned dynastid,1350,On trees (any kind),17 - 8,-,-,-,-,-,-,1,1,-,-,-,-
+Horned elephant,8000,On palm trees,17 - 8,-,-,-,-,-,-,1,1,-,-,-,-
+Horned hercules,12000,On palm trees,17 - 8,-,-,-,-,-,-,1,1,-,-,-,-
+Jewel beetle,"2,400",On tree stumps,All day,-,-,-,1,1,1,1,1,-,-,-,-
 Ladybug,200,On flowers,8 - 17,-,-,1,1,1,1,-,-,-,1,-,-
 Long locust,200,Hopping,8 - 19,-,-,-,1,1,1,1,1,1,1,1,-
 Madagascan sunset moth,2500,Flying,8 - 16,-,-,-,1,1,1,1,1,1,-,-,-
 Man-faced stink bug,"1,000",On flowers,19 - 8,-,-,1,1,1,1,1,1,1,1,-,-
 Mantis,430,On Flowers,8 - 17,-,-,1,1,1,1,1,1,1,1,1,-
 Migratory locust,600,Hopping,8 - 19,-,-,-,-,-,-,-,1,1,1,1,-
-Miyama stag,?,On Trees,All day,-,-,-,-,-,-,1,1,-,-,-,-
+Miyama stag,1000,On trees (any kind),All day,-,-,-,-,-,-,1,1,-,-,-,-
 Mole cricket,500,Underground,All day,1,1,1,1,1,-,-,-,-,-,1,1
 Monarch butterfly,140,Flying,4 - 17,-,-,-,-,-,-,-,-,1,1,1,-
 Mosquito,130,Flying,17 - 4,-,-,-,-,-,1,1,1,1,-,-,-
@@ -53,28 +53,28 @@ Moth,130,Flying by light,19 - 4,1,1,1,1,1,1,1,1,1,1,1,1
 Orchid mantis,2400,On flowers (white),8 - 17,-,-,1,1,1,1,1,1,1,1,1,-
 Paper kite butterfly,"1,000",Flying,8 - 19,1,1,1,1,1,1,1,1,1,1,1,1
 Peacock butterfly,"2,500",Flying,4 - 19,-,-,1,1,1,1,-,-,-,-,-,-
-Pill bug,250,Hit a rock,23 - 16,1,1,1,1,1,1,-,-,1,1,1,1
+Pill bug,250,From hitting rocks,23 - 16,1,1,1,1,1,1,-,-,1,1,1,1
 Pondskater,130,On Ponds,8 - 19,-,-,-,-,1,1,1,1,1,-,-,-
 Queen Alexandra's birdwing,4000,Flying,8 - 16,-,-,-,-,1,1,1,1,1,-,-,-
-Rainbow stag,?,On Trees,19 - 8,-,-,-,-,-,1,1,1,1,-,-,-
+Rainbow stag,6000,On trees (any kind),19 - 8,-,-,-,-,-,1,1,1,1,-,-,-
 Rajah Brooke's Birdwing,2500,Flying,8 - 17,1,1,-,1,1,1,1,1,1,-,-,1
 Red dragonfly,180,Flying,8 - 19,-,-,-,-,-,-,-,-,1,1,-,-
 Rice grasshopper,160,Hopping,8 - 19,-,-,-,-,-,-,-,1,1,1,1,-
-Robust cicada,?,On Trees,8 - 17,-,-,-,-,-,-,1,1,-,-,-,-
+Robust cicada,300,On trees (hardwood and cedar),8 - 17,-,-,-,-,-,-,1,1,-,-,-,-
 Rosalia batesi beetle,"3,000",On Tree Stumps,All day,-,-,-,-,1,1,1,1,1,-,-,-
-Saw stag,?,On Trees,All day,-,-,-,-,-,-,1,1,-,-,-,-
-Scarab beetle,?,On Tree,23 - 8,-,-,-,-,-,-,1,1,-,-,-,-
+Saw stag,2000,On trees (any kind),All day,-,-,-,-,-,-,1,1,-,-,-,-
+Scarab beetle,10000,On trees (any kind),23 - 8,-,-,-,-,-,-,1,1,-,-,-,-
 Scorpion,8000,On the ground,19 - 4,-,-,-,-,1,1,1,1,1,1,-,-
-Snail,250,On rocks when raining,All day,1,1,1,1,1,1,1,1,1,1,1,1
-Spider,480,Shake a tree,19 - 8,1,1,1,1,1,1,1,1,1,1,1,1
+Snail,250,On rocks and bushes (raining),All day,1,1,1,1,1,1,1,1,1,1,1,1
+Spider,600,Shaking trees,19 - 8,1,1,1,1,1,1,1,1,1,1,1,1
 Stinkbug,120,On flowers,All day,-,-,1,1,1,1,1,1,1,1,-,-
 Tarantula,"8,000",On the ground,19 - 4,1,1,1,1,-,-,-,-,-,-,1,1
 Tiger beetle,"1,500",On the ground,All day,-,1,1,1,1,1,1,1,1,1,-,-
 Tiger butterfly,240,Flying,4 - 19,-,-,1,1,1,1,1,1,1,-,-,-
 Violin beetle,450,On a tree stump,All day,-,-,-,-,1,1,-,-,1,1,1,-
-Walker cicada,400,On Trees,8 - 17,-,-,-,-,-,-,-,1,1,-,-,-
-Walking leaf,600,Under Trees Disguised as Leafs,All day,-,-,-,-,-,-,1,1,1,-,-,-
-Walking stick,?,Shaking Tree,4 - 8 & 17 - 19,-,-,-,-,-,-,1,1,1,1,1,-
+Walker cicada,400,On trees (hardwood and cedar),8 - 17,-,-,-,-,-,-,-,1,1,-,-,-
+Walking leaf,600,Under Trees Disguised as furniture leaf,All day,-,-,-,-,-,-,1,1,1,-,-,-
+Walking stick,600,On trees (any kind),4 - 8 & 17 - 19,-,-,-,-,-,-,1,1,1,1,1,-
 Wasp,"2,500",Shake tree,All day,1,1,1,1,1,1,1,1,1,1,1,1
 Wharf roach,200,On beach rocks,All day,1,1,1,1,1,1,1,1,1,1,1,1
 Yellow butterfly,160,Flying,4 - 19,-,-,1,1,1,1,-,-,1,1,-,-
