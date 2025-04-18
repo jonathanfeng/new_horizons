@@ -7,15 +7,13 @@
             <p class="small text-muted">Currently available in your selected hemisphere and timezone</p>
             
             <!-- Search filter -->
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-                    <input type="text" id="searchFilter" class="form-control" placeholder="Search for critters...">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default search-clear" type="button" title="Clear search">
-                            <span class="glyphicon glyphicon-remove"></span>
-                        </button>
-                    </span>
+            <div class="search-container">
+                <div class="search-wrapper">
+                    <span class="search-icon"><span class="glyphicon glyphicon-search"></span></span>
+                    <input type="text" id="searchFilter" class="search-input" placeholder="Search for critters...">
+                    <button class="search-clear-btn" type="button" title="Clear search">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -103,17 +101,37 @@
         .sortable {
             cursor: pointer;
             position: relative;
+            transition: background-color 0.2s;
+            background-color: #f0f0f0;
+            user-select: none;
         }
+        
+        .sortable:hover {
+            background-color: #e0e0e0;
+        }
+        
         .sort-icon {
             margin-left: 5px;
+            display: inline-block;
+            width: 10px;
         }
+        
+        .sort-icon:after {
+            content: "⇅";
+            font-size: 12px;
+            color: #999;
+        }
+        
         .sortable.asc .sort-icon:after {
             content: "▲";
             font-size: 10px;
+            color: #333;
         }
+        
         .sortable.desc .sort-icon:after {
             content: "▼";
             font-size: 10px;
+            color: #333;
         }
         
         /* No results message styling */
@@ -126,9 +144,59 @@
             border: 1px solid #f0dc65;
         }
         
-        /* Clear search button styling */
-        .search-clear {
+        /* Improved search styling */
+        .search-container {
+            margin: 15px 0 5px;
+            width: 100%;
+        }
+        
+        .search-wrapper {
+            display: flex;
+            align-items: center;
+            position: relative;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            overflow: hidden;
+            background-color: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+        }
+        
+        .search-wrapper:focus-within {
+            border-color: #66afe9;
+            box-shadow: 0 1px 5px rgba(102, 175, 233, 0.6);
+        }
+        
+        .search-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 10px;
+            color: #666;
+        }
+        
+        .search-input {
+            flex: 1;
+            border: none;
+            padding: 10px 5px;
+            height: 38px;
+            width: 100%;
+            outline: none;
+            font-size: 14px;
+        }
+        
+        .search-clear-btn {
+            background: transparent;
+            border: none;
+            padding: 0 10px;
+            color: #999;
             cursor: pointer;
+            height: 38px;
+            transition: color 0.2s;
+        }
+        
+        .search-clear-btn:hover {
+            color: #333;
         }
         
         /* Sticky header for desktop */
@@ -156,8 +224,8 @@
                 padding: 8px 4px;
             }
             
-            .input-group {
-                width: 100%;
+            .search-container {
+                margin: 10px 0;
             }
         }
         
@@ -229,9 +297,10 @@
                 });
                 
                 // Clear search button
-                document.querySelector('.search-clear').addEventListener('click', function() {
+                document.querySelector('.search-clear-btn').addEventListener('click', function() {
                     searchFilter.value = '';
                     filterTable('');
+                    searchFilter.focus();
                 });
             }
             
