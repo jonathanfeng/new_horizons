@@ -12,11 +12,14 @@
         <a class="btn btn-default btn-lg" href="{{url_for('bugs')}}">
             <span class="glyphicon glyphicon-bug" aria-hidden="true"></span> Bugs
         </a>
+        <a class="btn btn-default btn-lg" href="{{url_for('sea_creatures')}}">
+            <span class="glyphicon glyphicon-tint" aria-hidden="true"></span> Sea Creatures
+        </a>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Fish Collection</h3>
@@ -27,7 +30,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Bug Collection</h3>
@@ -35,6 +38,17 @@
             <div class="panel-body">
                 <p>Catch bugs throughout the day and night. Learn which bugs are active during the current time and how much they're worth.</p>
                 <a href="{{url_for('bugs')}}" class="btn btn-default">Find Bugs</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Sea Creature Collection</h3>
+            </div>
+            <div class="panel-body">
+                <p>Dive into the ocean to find sea creatures! See which ones are swimming around right now and check their value.</p>
+                <a href="{{url_for('sea_creatures')}}" class="btn btn-default">Dive In</a>
             </div>
         </div>
     </div>
