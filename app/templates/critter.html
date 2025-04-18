@@ -5,8 +5,32 @@
 {% if not timezone %}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('mySelect').value = moment.tz.guess();
+            // Get the user's timezone using moment.js
+            const detectedTimezone = moment.tz.guess();
+            document.getElementById('mySelect').value = detectedTimezone;
+            
+            // Store timezone in localStorage
+            localStorage.setItem('selected_timezone', detectedTimezone);
+            
+            // Trigger clock update if the updateClock function exists
+            if (typeof updateClock === 'function') {
+                updateClock();
+            }
+            
+            // Submit the form to load appropriate data
             document.form1.submit();
+        });
+    </script>
+{% else %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Store the currently selected timezone in localStorage
+            localStorage.setItem('selected_timezone', '{{ timezone }}');
+            
+            // Trigger clock update if the updateClock function exists
+            if (typeof updateClock === 'function') {
+                updateClock();
+            }
         });
     </script>
 {% endif %}
@@ -33,7 +57,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="mySelect"><strong>Select Your Timezone:</strong></label>
-                            <select class="form-control" id="mySelect" onchange="this.form.submit()" name="timezone">
+                            <select class="form-control" id="mySelect" onchange="updateTimezone(this.value)" name="timezone">
                                 {% for timez in timezones %}
                                 <option value="{{timez[0]}}" {% if timez[0] == timezone %} selected {% endif %}>{{timez[0] + ' ' + timez[1]}}</option>
                                 {% endfor %}
@@ -44,5 +68,22 @@
             </form>
         </div>
     </div>
+    
+    <script>
+        // Function to update timezone and immediately update the clock
+        function updateTimezone(timezone) {
+            // Save to localStorage
+            localStorage.setItem('selected_timezone', timezone);
+            
+            // Update the clock immediately if the function exists
+            if (typeof updateClock === 'function') {
+                updateClock();
+            }
+            
+            // Submit the form
+            document.form1.submit();
+        }
+    </script>
+    
     {% block critter_table %} {% endblock %}
 {% endblock %}
