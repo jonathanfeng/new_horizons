@@ -10,7 +10,12 @@
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-                    <input type="text" id="searchFilter" class="form-control" placeholder="Search...">
+                    <input type="text" id="searchFilter" class="form-control" placeholder="Search for critters...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default search-clear" type="button" title="Clear search">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </span>
                 </div>
             </div>
         </div>
@@ -111,6 +116,21 @@
             font-size: 10px;
         }
         
+        /* No results message styling */
+        #noResultsMessage {
+            padding: 20px;
+            color: #8a543a;
+            background-color: #f8e9b5;
+            border-radius: 4px;
+            margin-top: 15px;
+            border: 1px solid #f0dc65;
+        }
+        
+        /* Clear search button styling */
+        .search-clear {
+            cursor: pointer;
+        }
+        
         /* Sticky header for desktop */
         @media (min-width: 768px) {
             #critterTable thead {
@@ -206,6 +226,12 @@
                 // Clear button for mobile convenience
                 searchFilter.addEventListener('search', function() {
                     filterTable(this.value.trim().toLowerCase());
+                });
+                
+                // Clear search button
+                document.querySelector('.search-clear').addEventListener('click', function() {
+                    searchFilter.value = '';
+                    filterTable('');
                 });
             }
             
