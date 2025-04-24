@@ -397,18 +397,27 @@
                         return asc ? numA - numB : numB - numA;
                     } 
                     else if (columnTitle.includes('Shadow Size')) {
-                        // Shadow Size sorting (handle text and numbers)
-                        const sizeMap = { 'Narrow': 1, 'Small': 2, 'Medium': 3, 'Large': 4, 'X Large': 5, 'Huge': 6, 'Fin': 7 };
+                        // Refined Shadow Size sorting
+                        const sizeOrder = ['Narrow', 'Small', 'Medium', 'Large', 'X Large', 'Huge', 'Fin']; // Ordered list for priority check
+
                         const getSizeValue = (text) => {
-                            // Check for exact text matches first
-                            for (const [key, value] of Object.entries(sizeMap)) {
-                                if (text.toLowerCase() === key.toLowerCase()) return value;
+                            const lowerText = text.toLowerCase();
+
+                            // Check for size words in order
+                            for (let i = 0; i < sizeOrder.length; i++) {
+                                if (lowerText.includes(sizeOrder[i].toLowerCase())) {
+                                    // Return index + 1 as the sort value (1-based)
+                                    return i + 1;
+                                }
                             }
-                            // Try to parse as a number if no text match
+
+                            // If no size word found, try parsing as a number
                             const num = parseInt(text);
-                            if (!isNaN(num)) return num;
-                            return 0; // Default for unknown values
+                            if (!isNaN(num)) return num; // Use the number directly if valid
+
+                            return sizeOrder.length + 1; // Unknown/non-matching values sort last
                         };
+
                         const sizeA = getSizeValue(cellA);
                         const sizeB = getSizeValue(cellB);
                         return asc ? sizeA - sizeB : sizeB - sizeA;
