@@ -271,15 +271,16 @@
                         h.classList.remove('asc', 'desc');
                     });
                     
-                    // Add appropriate class to clicked header
-                    this.classList.add(isAsc ? 'desc' : 'asc');
+                    // Toggle sort direction
+                    const newDirection = isAsc ? 'desc' : 'asc';
+                    this.classList.add(newDirection);
                     
                     // Add visual feedback when sorting
                     table.classList.add('sorting-active');
                     
                     // Use setTimeout to allow the UI to update before sorting (better UX)
                     setTimeout(() => {
-                        sortTable(columnIndex, !isAsc, sortType);
+                        sortTable(columnIndex, newDirection === 'asc', sortType);
                         table.classList.remove('sorting-active');
                     }, 50);
                 });
@@ -382,13 +383,15 @@
                     const cellA = rowA.cells[columnIndex].textContent.trim();
                     const cellB = rowB.cells[columnIndex].textContent.trim();
                     
+                    // Determine the column content type based on the column index and text
+                    // to apply the appropriate sorting logic
+                    const columnHeader = table.querySelector(`th[data-sort-index="${columnIndex}"]`);
+                    const columnTitle = columnHeader ? columnHeader.textContent.trim() : '';
+                    
                     if (sortType === 'number') {
                         // Improved number extraction for price values
                         const extractNumber = (text) => {
-                            // Remove currency symbols, commas, and other non-numeric characters
-                            // but keep decimal points
                             const cleanedText = text.replace(/[^\d.]/g, '');
-                            // Parse as float to handle decimal points correctly
                             return parseFloat(cleanedText) || 0;
                         };
                         
@@ -396,8 +399,102 @@
                         const numB = extractNumber(cellB);
                         
                         return asc ? numA - numB : numB - numA;
-                    } else {
-                        // Text comparison
+                    } 
+                    else if (columnTitle.includes('Shadow Size')) {
+                        // Sort shadow sizes (1-6) numerically
+                        const sizeMap = { 'Narrow': 1, 'Small': 2, 'Medium': 3, 'Large': 4, 'X Large': 5, 'Huge': 6, 'Fin': 7 };
+                        const getSizeValue = (text) => {
+                            // First try to extract a number
+                            const num = parseInt(text);
+                            if (!isNaN(num)) return num;
+                            
+                            // Try to match known size words
+                            for (const [key, value] of Object.entries(sizeMap)) {
+                                if (text.includes(key)) return value;
+                            }
+                            return 0;
+                        };
+                        
+                        const sizeA = getSizeValue(cellA);
+                        const sizeB = getSizeValue(cellB);
+                        
+                        return asc ? sizeA - sizeB : sizeB - sizeA;
+                    }
+                    else if (columnTitle.includes('Seasonality')) {
+                        // Sort by months with special handling for "All year"
+                        const monthOrder = {
+                            'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6, 
+                            'June': 6, 'Jul': 7, 'July': 7, 'Aug': 8, 'Sep': 9, 'Sept': 9, 
+                            'Oct': 10, 'Nov': 11, 'Dec': 12, 'All year': 0
+                        };
+                        
+                        const getSeasonValue = (text) => {
+                            if (text.includes('All year')) return 0;
+                            
+                            // Extract the first month mentioned
+                            for (const [month, value] of Object.entries(monthOrder)) {
+                                if (text.includes(month)) return value;
+                            }
+                            return 13; // Unknown/others at the end
+                        };
+                        
+                        const seasonA = getSeasonValue(cellA);
+                        const seasonB = getSeasonValue(cellB);
+                        
+                        return asc ? seasonA - seasonB : seasonB - seasonA;
+                    }
+                    else if (columnTitle.includes('Times Active')) {
+                        // Sort by time with special handling for "All day"
+                        const getTimeValue = (text) => {
+                            if (text.includes('All day')) return 0;
+                            
+                            // Try to extract the start hour
+                            const timeMatch = text.match(/(\d+)\s*(AM|PM)/i);
+                            if (!timeMatch) return 24; // Unknown format
+                            
+                            let hour = parseInt(timeMatch[1]);
+                            const meridiem = timeMatch[2].toUpperCase();
+                            
+                            // Convert to 24-hour format
+                            if (meridiem === 'PM' && hour < 12) hour += 12;
+                            if (meridiem === 'AM' && hour === 12) hour = 0;
+                            
+                            return hour;
+                        };
+                        
+                        const timeA = getTimeValue(cellA);
+                        const timeB = getTimeValue(cellB);
+                        
+                        return asc ? timeA - timeB : timeB - timeA;
+                    }
+                    else {
+                        // Text comparison with special handling for location priority
+                        if (columnTitle.includes('Location')) {
+                            // Define location priorities (customize based on your data)
+                            const locationPriority = {
+                                'River': 1,
+                                'Pond': 2,
+                                'Sea': 3, 
+                                'Pier': 4,
+                                'Clifftop': 5,
+                                'Mouth': 6,
+                                'Trees': 7,
+                                'Flowers': 8,
+                                'Ground': 9
+                            };
+                            
+                            // Check for priority locations
+                            for (const [location, priority] of Object.entries(locationPriority)) {
+                                const hasLocationA = cellA.includes(location);
+                                const hasLocationB = cellB.includes(location);
+                                
+                                if (hasLocationA && !hasLocationB) return asc ? -1 : 1;
+                                if (!hasLocationA && hasLocationB) return asc ? 1 : -1;
+                                if (hasLocationA && hasLocationB) break; // Both have same priority location, fall back to text compare
+                            }
+                        }
+                        
+                        // Default text comparison
                         return asc 
                             ? cellA.localeCompare(cellB) 
                             : cellB.localeCompare(cellA);
