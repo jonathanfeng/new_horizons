@@ -383,9 +383,18 @@
                     const cellB = rowB.cells[columnIndex].textContent.trim();
                     
                     if (sortType === 'number') {
-                        // Extract numbers for comparison
-                        const numA = parseInt(cellA.replace(/[^\d]/g, '')) || 0;
-                        const numB = parseInt(cellB.replace(/[^\d]/g, '')) || 0;
+                        // Improved number extraction for price values
+                        const extractNumber = (text) => {
+                            // Remove currency symbols, commas, and other non-numeric characters
+                            // but keep decimal points
+                            const cleanedText = text.replace(/[^\d.]/g, '');
+                            // Parse as float to handle decimal points correctly
+                            return parseFloat(cleanedText) || 0;
+                        };
+                        
+                        const numA = extractNumber(cellA);
+                        const numB = extractNumber(cellB);
+                        
                         return asc ? numA - numB : numB - numA;
                     } else {
                         // Text comparison
