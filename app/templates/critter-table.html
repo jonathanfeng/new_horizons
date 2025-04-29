@@ -30,36 +30,30 @@
                                 <span class="sort-icon"></span>
                             </th>
                             {% if critterType != 'fish' %}
-                            <th class="sortable" data-sort-type="text" data-sort-index="1">
+                            <th>
                                 <span class="glyphicon glyphicon-map-marker"></span> Location
-                                <span class="sort-icon"></span>
                             </th>
                             {% endif %}
                             {% if critterType == 'fish' or critterType == 'sea_creatures' %}
-                            <th class="sortable" data-sort-type="text" data-sort-logic="shadow-size" data-sort-index="{% if critterType == 'sea_creatures' %}1{% else %}2{% endif %}">
+                            <th>
                                 <span class="glyphicon glyphicon-resize-full"></span> Shadow Size
-                                <span class="sort-icon"></span>
                             </th>
                             {% endif %}
                             {% if critterType == 'sea_creatures' %}
-                            <th class="sortable" data-sort-type="text" data-sort-index="2">
+                            <th>
                                 <span class="glyphicon glyphicon-transfer"></span> Shadow Movement
-                                <span class="sort-icon"></span>
                             </th>
                             {% endif %}
                             {% if critterType == 'fish' %}
-                            <th class="sortable" data-sort-type="text" data-sort-index="1">
+                            <th>
                                 <span class="glyphicon glyphicon-map-marker"></span> Location
-                                <span class="sort-icon"></span>
                             </th>
                             {% endif %}
-                            <th class="sortable" data-sort-type="text" data-sort-logic="seasonality" data-sort-index="{% if critterType == 'sea_creatures' %}3{% elif critterType == 'fish' %}3{% else %}2{% endif %}">
+                            <th>
                                 <span class="glyphicon glyphicon-calendar"></span> Seasonality
-                                <span class="sort-icon"></span>
                             </th>
-                            <th class="sortable" data-sort-type="text" data-sort-logic="time-active" data-sort-index="{% if critterType == 'sea_creatures' %}4{% elif critterType == 'fish' %}4{% else %}3{% endif %}">
+                            <th>
                                 <span class="glyphicon glyphicon-time"></span> Times Active
-                                <span class="sort-icon"></span>
                             </th>
                             <th class="sortable" data-sort-type="number" data-sort-index="{% if critterType == 'sea_creatures' %}5{% elif critterType == 'fish' %}5{% else %}4{% endif %}">
                                 <span class="glyphicon glyphicon-usd"></span> Price
@@ -255,7 +249,7 @@
             
             if (!table) return;
             
-            // Save original table data for filtering
+            // Save original table data for filtering and sorting
             const originalRows = Array.from(tableBody.querySelectorAll('tr'));
             
             // Sorting functionality
@@ -375,114 +369,49 @@
             }
             
             function sortTable(columnIndex, asc, sortType) {
-                const rows = Array.from(tableBody.querySelectorAll('tr'));
-                const header = table.querySelector(`th[data-sort-index="${columnIndex}"]`);
-                const sortLogic = header ? header.getAttribute('data-sort-logic') : null;
+                // Always sort from original data
+                const currentSearchTerm = searchFilter ? searchFilter.value.trim().toLowerCase() : '';
                 
-                // Sort rows
-                const sortedRows = rows.sort((rowA, rowB) => {
+                // Get the rows to sort - either original rows or filtered rows from search
+                const rowsToSort = currentSearchTerm ? 
+                    // If there's a search term, use only filtered rows from original
+                    originalRows.filter(row => {
+                        let matchFound = false;
+                        const cells = row.querySelectorAll('td');
+                        cells.forEach(cell => {
+                            const text = cell.textContent.toLowerCase();
+                            if (text.includes(currentSearchTerm)) {
+                                matchFound = true;
+                            }
+                        });
+                        return matchFound;
+                    }) : 
+                    // Otherwise use all original rows
+                    [...originalRows];
+                
+                // Sort the rows
+                const sortedRows = rowsToSort.sort((rowA, rowB) => {
                     const cellA = rowA.cells[columnIndex].textContent.trim();
                     const cellB = rowB.cells[columnIndex].textContent.trim();
                     
-                    // Determine sorting method: use data-sort-logic if present, otherwise data-sort-type, default to text
-                    const effectiveSortType = sortLogic || sortType || 'text';
-                    
-                    switch (effectiveSortType) {
-                        case 'number': {
-                            // Improved number extraction for price values
-                            const extractNumber = (text) => {
-                                // Remove currency symbols, commas, and other non-numeric characters
-                                // but keep decimal points
-                                const cleanedText = text.replace(/[^\d.]/g, '');
-                                // Parse as float to handle decimal points correctly
-                                return parseFloat(cleanedText) || 0;
-                            };
-                            const numA = extractNumber(cellA);
-                            const numB = extractNumber(cellB);
-                            return asc ? numA - numB : numB - numA;
-                        }
-                        case 'shadow-size': {
-                            // Shadow Size sorting (Revised for robustness)
-                            const getSizeValue = (text) => {
-                                const lowerText = text.toLowerCase().trim();
-                                const sizeMap = {
-                                    'narrow': 1, '1': 1,
-                                    'small': 2, '2': 2,
-                                    'medium': 3, '3': 3,
-                                    'large': 4, '4': 4,
-                                    'x large': 5, '5': 5, 'xlarge': 5,
-                                    'huge': 6, '6': 6,
-                                    'fin': 7,
-                                    'large (fin)': 7 // Map 'large (fin)' to fin's value
-                                };
-                                
-                                // Check for exact matches in the map first
-                                if (sizeMap.hasOwnProperty(lowerText)) {
-                                    return sizeMap[lowerText];
-                                }
-                                
-                                // Handle cases like "Large (Fin)" - prioritize 'fin' if present
-                                if (lowerText.includes('fin')) return sizeMap['fin']; 
-                                // Check other keywords from largest to smallest
-                                if (lowerText.includes('huge')) return sizeMap['huge'];
-                                if (lowerText.includes('x large') || lowerText.includes('xlarge')) return sizeMap['x large'];
-                                if (lowerText.includes('large')) return sizeMap['large'];
-                                if (lowerText.includes('medium')) return sizeMap['medium'];
-                                if (lowerText.includes('small')) return sizeMap['small'];
-                                if (lowerText.includes('narrow')) return sizeMap['narrow'];
-                                
-                                // Fallback for potential numeric values if not caught by map/includes
-                                const num = parseInt(lowerText);
-                                if (!isNaN(num) && num >= 1 && num <= 6) return num; 
-                                
-                                return 8; // Unknown/unmapped sizes last
-                            };
-                            const sizeA = getSizeValue(cellA);
-                            const sizeB = getSizeValue(cellB);
-                            return asc ? sizeA - sizeB : sizeB - sizeA;
-                        }
-                        case 'seasonality': {
-                            // Seasonality sorting (by starting month)
-                            const monthOrder = {
-                                'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6,
-                                'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12
-                            };
-                            const getSeasonValue = (text) => {
-                                if (text.toLowerCase().includes('all year')) return 0;
-                                const monthMatch = text.match(/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/i);
-                                if (monthMatch && monthMatch[0]) {
-                                    const formattedMonth = monthMatch[0].charAt(0).toUpperCase() + monthMatch[0].slice(1).toLowerCase();
-                                    return monthOrder[formattedMonth] || 13;
-                                }
-                                return 13; // Unknown last
-                            };
-                            const seasonA = getSeasonValue(cellA);
-                            const seasonB = getSeasonValue(cellB);
-                            return asc ? seasonA - seasonB : seasonB - seasonA;
-                        }
-                        case 'time-active': {
-                            // Time sorting (by start hour in 24h format)
-                            const getTimeValue = (text) => {
-                                if (text.toLowerCase().includes('all day')) return -1; // All day first
-                                const timeMatch = text.match(/(\d{1,2})\s*(AM|PM)/i);
-                                if (!timeMatch) return 25; // Unknown last
-                                let hour = parseInt(timeMatch[1]);
-                                const meridiem = timeMatch[2].toUpperCase();
-                                if (meridiem === 'PM' && hour < 12) hour += 12;
-                                if (meridiem === 'AM' && hour === 12) hour = 0; // Midnight
-                                return hour;
-                            };
-                            const timeA = getTimeValue(cellA);
-                            const timeB = getTimeValue(cellB);
-                            return asc ? timeA - timeB : timeB - timeA;
-                        }
-                        default: {
-                            // Default text comparison
-                            return asc
-                                ? cellA.localeCompare(cellB)
-                                : cellB.localeCompare(cellA);
-                        }
-                    } 
+                    if (sortType === 'number') {
+                        // Improved number extraction for price values
+                        const extractNumber = (text) => {
+                            // Remove currency symbols, commas, and other non-numeric characters
+                            // but keep decimal points
+                            const cleanedText = text.replace(/[^\d.]/g, '');
+                            // Parse as float to handle decimal points correctly
+                            return parseFloat(cleanedText) || 0;
+                        };
+                        const numA = extractNumber(cellA);
+                        const numB = extractNumber(cellB);
+                        return asc ? numA - numB : numB - numA;
+                    } else {
+                        // Default text comparison
+                        return asc
+                            ? cellA.localeCompare(cellB)
+                            : cellB.localeCompare(cellA);
+                    }
                 });
                 
                 // Remove existing rows
@@ -492,7 +421,26 @@
                 
                 // Add sorted rows
                 sortedRows.forEach(row => {
-                    tableBody.appendChild(row);
+                    const newRow = row.cloneNode(true);
+                    
+                    // Re-apply search highlighting if needed
+                    if (currentSearchTerm) {
+                        const cells = newRow.querySelectorAll('td');
+                        cells.forEach(cell => {
+                            const text = cell.textContent;
+                            // Use a regex to highlight all occurrences of the search term
+                            const highlightedText = text.replace(
+                                new RegExp(currentSearchTerm, 'gi'), 
+                                match => `<mark class="highlight">${match}</mark>`
+                            );
+                            
+                            if (text.toLowerCase().includes(currentSearchTerm)) {
+                                cell.innerHTML = highlightedText;
+                            }
+                        });
+                    }
+                    
+                    tableBody.appendChild(newRow);
                 });
             }
             
