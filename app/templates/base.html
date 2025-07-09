@@ -82,13 +82,22 @@ body {
     border-color: var(--ac-dark-green);
     border-radius: 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-height: 60px;
 }
 
-.navbar-default .navbar-brand,
+.navbar-default .navbar-brand {
+    color: white;
+    font-weight: 500;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+    height: 60px;
+    line-height: 30px;
+}
+
 .navbar-default .navbar-nav > li > a {
     color: white;
     font-weight: 500;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+    line-height: 30px;
 }
 
 .navbar-default .navbar-brand:hover,
@@ -158,6 +167,13 @@ body {
     display: inline-block;
     position: relative;
     margin-right: 15px;
+    height: 100%;
+}
+
+.navbar-right {
+    height: 60px;
+    display: flex;
+    align-items: center;
 }
 
 #navbar-clock {
@@ -171,7 +187,6 @@ body {
     font-weight: 500;
     transition: background-color 0.2s;
     cursor: default;
-    margin-top: 8px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
@@ -180,6 +195,9 @@ body {
 }
 
 .clock-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     margin-right: 8px;
     color: var(--ac-yellow);
 }
