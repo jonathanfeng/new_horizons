@@ -29,34 +29,34 @@
                                 {% endif %}
                                 <span class="sort-icon"></span>
                             </th>
-                            {% if critterType != 'fish' %}
+                            {% if critterType == 'bugs' %}
                             <th>
-                                <span class="glyphicon glyphicon-map-marker"></span> Location
+                                <span class="glyphicon glyphicon-map-marker th-icon"></span>Location
                             </th>
                             {% endif %}
                             {% if critterType == 'fish' or critterType == 'sea_creatures' %}
                             <th>
-                                <span class="glyphicon glyphicon-resize-full"></span> Shadow Size
+                                <span class="glyphicon glyphicon-resize-full th-icon"></span>Shadow Size
                             </th>
                             {% endif %}
                             {% if critterType == 'sea_creatures' %}
                             <th>
-                                <span class="glyphicon glyphicon-transfer"></span> Shadow Movement
+                                <span class="glyphicon glyphicon-transfer th-icon"></span>Shadow Movement
                             </th>
                             {% endif %}
                             {% if critterType == 'fish' %}
                             <th>
-                                <span class="glyphicon glyphicon-map-marker"></span> Location
+                                <span class="glyphicon glyphicon-map-marker th-icon"></span>Location
                             </th>
                             {% endif %}
                             <th>
-                                <span class="glyphicon glyphicon-calendar"></span> Seasonality
+                                <span class="glyphicon glyphicon-calendar th-icon"></span>Seasonality
                             </th>
                             <th>
-                                <span class="glyphicon glyphicon-time"></span> Times Active
+                                <span class="glyphicon glyphicon-time th-icon"></span>Times Active
                             </th>
                             <th class="sortable" data-sort-type="number" data-sort-index="{% if critterType == 'sea_creatures' %}5{% elif critterType == 'fish' %}5{% else %}4{% endif %}">
-                                <span class="glyphicon glyphicon-usd"></span> Price
+                                <span class="glyphicon glyphicon-usd th-icon"></span>Price
                                 <span class="sort-icon"></span>
                             </th>
                         </tr>
@@ -65,7 +65,7 @@
                         {% for critter in critter_list %}
                             <tr>
                                 <td><strong>{{critter[0]}}</strong></td>
-                                {% if critterType != 'fish' %}
+                                {% if critterType == 'bugs' %}
                                 <td>{{critter[2]}}</td>
                                 {% endif %}
                                 {% if critterType == 'fish' or critterType == 'sea_creatures' %}
@@ -92,6 +92,11 @@
     </div>
 
     <style>
+        .th-icon {
+            vertical-align: -2px;
+            margin-right: 6px;
+        }
+
         .sortable {
             cursor: pointer;
             position: relative;
@@ -249,7 +254,6 @@
             
             if (!table) return;
             
-            // Save original table data for filtering and sorting
             const originalRows = Array.from(tableBody.querySelectorAll('tr'));
             
             // Sorting functionality
@@ -260,18 +264,12 @@
                     const columnIndex = parseInt(this.getAttribute('data-sort-index'));
                     const isAsc = this.classList.contains('asc');
                     
-                    // Remove asc/desc class from all headers
-                    headers.forEach(h => {
-                        h.classList.remove('asc', 'desc');
-                    });
-                    
-                    // Add appropriate class to clicked header
+                    headers.forEach(h => h.classList.remove('asc', 'desc'));
                     this.classList.add(isAsc ? 'desc' : 'asc');
                     
-                    // Add visual feedback when sorting
                     table.classList.add('sorting-active');
                     
-                    // Use setTimeout to allow the UI to update before sorting (better UX)
+                    // Use setTimeout to allow the UI to update before sorting for a better UX
                     setTimeout(() => {
                         sortTable(columnIndex, !isAsc, sortType);
                         table.classList.remove('sorting-active');
@@ -279,19 +277,13 @@
                 });
             });
             
-            // Search filter functionality
             if (searchFilter) {
-                searchFilter.addEventListener('input', function() {
-                    filterTable(this.value.trim().toLowerCase());
-                });
+                searchFilter.addEventListener('input', () => filterTable(searchFilter.value.trim().toLowerCase()));
                 
-                // Clear button for mobile convenience
-                searchFilter.addEventListener('search', function() {
-                    filterTable(this.value.trim().toLowerCase());
-                });
+                // Also filter on 'search' event for native browser clear buttons
+                searchFilter.addEventListener('search', () => filterTable(searchFilter.value.trim().toLowerCase()));
                 
-                // Clear search button
-                document.querySelector('.search-clear-btn').addEventListener('click', function() {
+                document.querySelector('.search-clear-btn').addEventListener('click', () => {
                     searchFilter.value = '';
                     filterTable('');
                     searchFilter.focus();
@@ -299,143 +291,88 @@
             }
             
             function filterTable(searchTerm) {
-                // Reset to original rows if search is empty
+                // If search is empty, restore all original rows
                 if (!searchTerm) {
-                    while (tableBody.firstChild) {
-                        tableBody.removeChild(tableBody.firstChild);
-                    }
-                    
+                    tableBody.innerHTML = '';
                     originalRows.forEach(row => {
-                        // Remove any highlight from previous searches
-                        const cells = row.querySelectorAll('td');
-                        cells.forEach(cell => {
-                            cell.innerHTML = cell.innerHTML.replace(/<mark class="highlight">(.*?)<\/mark>/g, '$1');
+                        const newRow = row.cloneNode(true);
+                        newRow.querySelectorAll('td').forEach(cell => {
+                            cell.innerHTML = cell.innerHTML.replace(/<mark class="highlight">(.*?)<\/mark>/gi, '$1');
                         });
-                        
-                        tableBody.appendChild(row.cloneNode(true));
+                        tableBody.appendChild(newRow);
                     });
-                    
                     noResultsMessage.style.display = 'none';
                     return;
                 }
                 
-                // Filter rows by search term
                 const filteredRows = originalRows.filter(row => {
-                    let matchFound = false;
-                    const cells = row.querySelectorAll('td');
-                    
-                    cells.forEach(cell => {
-                        const text = cell.textContent.toLowerCase();
-                        if (text.includes(searchTerm)) {
-                            matchFound = true;
-                        }
-                    });
-                    
-                    return matchFound;
+                    return Array.from(row.querySelectorAll('td')).some(cell => 
+                        cell.textContent.toLowerCase().includes(searchTerm)
+                    );
                 });
                 
-                // Clear table
-                while (tableBody.firstChild) {
-                    tableBody.removeChild(tableBody.firstChild);
-                }
+                tableBody.innerHTML = '';
                 
-                // Show message if no results
                 if (filteredRows.length === 0) {
                     noResultsMessage.style.display = 'block';
                 } else {
                     noResultsMessage.style.display = 'none';
                     
-                    // Add filtered rows with highlighting
                     filteredRows.forEach(row => {
                         const newRow = row.cloneNode(true);
-                        const cells = newRow.querySelectorAll('td');
-                        
-                        cells.forEach(cell => {
+                        newRow.querySelectorAll('td').forEach(cell => {
                             const text = cell.textContent;
-                            // Use a regex to highlight all occurrences of the search term
-                            const highlightedText = text.replace(
-                                new RegExp(searchTerm, 'gi'), 
-                                match => `<mark class="highlight">${match}</mark>`
-                            );
-                            
                             if (text.toLowerCase().includes(searchTerm)) {
+                                const highlightedText = text.replace(
+                                    new RegExp(searchTerm, 'gi'), 
+                                    match => `<mark class="highlight">${match}</mark>`
+                                );
                                 cell.innerHTML = highlightedText;
                             }
                         });
-                        
                         tableBody.appendChild(newRow);
                     });
                 }
             }
             
             function sortTable(columnIndex, asc, sortType) {
-                // Always sort from original data
                 const currentSearchTerm = searchFilter ? searchFilter.value.trim().toLowerCase() : '';
                 
-                // Get the rows to sort - either original rows or filtered rows from search
-                const rowsToSort = currentSearchTerm ? 
-                    // If there's a search term, use only filtered rows from original
-                    originalRows.filter(row => {
-                        let matchFound = false;
-                        const cells = row.querySelectorAll('td');
-                        cells.forEach(cell => {
-                            const text = cell.textContent.toLowerCase();
-                            if (text.includes(currentSearchTerm)) {
-                                matchFound = true;
-                            }
-                        });
-                        return matchFound;
-                    }) : 
-                    // Otherwise use all original rows
-                    [...originalRows];
+                const rowsToSort = currentSearchTerm 
+                    ? originalRows.filter(row => Array.from(row.querySelectorAll('td')).some(cell => cell.textContent.toLowerCase().includes(currentSearchTerm)))
+                    : [...originalRows];
                 
-                // Sort the rows
                 const sortedRows = rowsToSort.sort((rowA, rowB) => {
                     const cellA = rowA.cells[columnIndex].textContent.trim();
                     const cellB = rowB.cells[columnIndex].textContent.trim();
                     
                     if (sortType === 'number') {
-                        // Improved number extraction for price values
-                        const extractNumber = (text) => {
-                            // Remove currency symbols, commas, and other non-numeric characters
-                            // but keep decimal points
-                            const cleanedText = text.replace(/[^\d.]/g, '');
-                            // Parse as float to handle decimal points correctly
-                            return parseFloat(cleanedText) || 0;
-                        };
+                        // Extracts numeric value from price string (e.g., "1,200 Bells")
+                        const extractNumber = (text) => parseFloat(text.replace(/[^\d.]/g, '')) || 0;
                         const numA = extractNumber(cellA);
                         const numB = extractNumber(cellB);
                         return asc ? numA - numB : numB - numA;
                     } else {
-                        // Default text comparison
                         return asc
-                            ? cellA.localeCompare(cellB)
-                            : cellB.localeCompare(cellA);
+                            ? cellA.localeCompare(cellB, undefined, {numeric: true})
+                            : cellB.localeCompare(cellA, undefined, {numeric: true});
                     }
                 });
                 
-                // Remove existing rows
-                while (tableBody.firstChild) {
-                    tableBody.removeChild(tableBody.firstChild);
-                }
+                tableBody.innerHTML = '';
                 
-                // Add sorted rows
                 sortedRows.forEach(row => {
                     const newRow = row.cloneNode(true);
                     
                     // Re-apply search highlighting if needed
                     if (currentSearchTerm) {
-                        const cells = newRow.querySelectorAll('td');
-                        cells.forEach(cell => {
+                        newRow.querySelectorAll('td').forEach(cell => {
                             const text = cell.textContent;
-                            // Use a regex to highlight all occurrences of the search term
-                            const highlightedText = text.replace(
-                                new RegExp(currentSearchTerm, 'gi'), 
-                                match => `<mark class="highlight">${match}</mark>`
-                            );
-                            
                             if (text.toLowerCase().includes(currentSearchTerm)) {
-                                cell.innerHTML = highlightedText;
+                                cell.innerHTML = text.replace(
+                                    new RegExp(currentSearchTerm, 'gi'), 
+                                    match => `<mark class="highlight">${match}</mark>`
+                                );
                             }
                         });
                     }
@@ -444,16 +381,11 @@
                 });
             }
             
-            // Add touch-friendly feedback for mobile
+            // Add touch-friendly feedback for mobile tsortable headers
             if ('ontouchstart' in window) {
                 headers.forEach(header => {
-                    header.addEventListener('touchstart', function() {
-                        this.classList.add('active');
-                    });
-                    
-                    header.addEventListener('touchend', function() {
-                        this.classList.remove('active');
-                    });
+                    header.addEventListener('touchstart', () => this.classList.add('active'), {passive: true});
+                    header.addEventListener('touchend', () => this.classList.remove('active'), {passive: true});
                 });
             }
         });
