@@ -77,11 +77,19 @@ body {
 }
 
 /* Navbar theming */
+.navbar {
+    min-height: 60px;
+}
+
 .navbar-default {
     background-color: var(--ac-green);
     border-color: var(--ac-dark-green);
     border-radius: 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-height: 60px;
+}
+
+.navbar-default .navbar-header {
     min-height: 60px;
 }
 
@@ -93,11 +101,24 @@ body {
     line-height: 30px;
 }
 
+.navbar-default .navbar-nav {
+    display: flex;
+    align-items: center;
+    min-height: 60px;
+}
+
+.navbar-default .navbar-nav > li {
+    display: flex;
+    align-items: center;
+}
+
 .navbar-default .navbar-nav > li > a {
     color: white;
     font-weight: 500;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
-    line-height: 30px;
+    line-height: normal;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 .navbar-default .navbar-brand:hover,
@@ -164,10 +185,11 @@ body {
 
 /* Clock styling */
 #navbar-clock-container {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    height: 60px;
     position: relative;
     margin-right: 15px;
-    height: 100%;
 }
 
 .navbar-right {
