@@ -1,0 +1,171 @@
+{% macro icon(name, class='') -%}
+<svg class="icon{% if class %} {{ class }}{% endif %}" aria-hidden="true"><use href="#i-{{ name }}"></use></svg>
+{%- endmacro %}
+
+{% macro select_chevron() -%}
+<svg class="icon select__chevron" aria-hidden="true"><use href="#i-chevron-down"></use></svg>
+{%- endmacro %}
+
+{% macro island_bar(settings, timezone_groups) %}
+<details class="island-bar" data-island-bar>
+  <summary class="island-bar__summary">
+    <span class="island-bar__label">Your island</span>
+    <span class="island-bar__chips">
+      <span class="island-chip">{{ icon('globe') }}{{ settings.hemisphere.value }} Hemisphere</span>
+      <span class="island-chip">{{ icon('clock') }}{{ settings.timezone_label }}</span>
+      <span class="island-chip{% if settings.planning %} island-chip--planning{% endif %}">{{ icon('calendar-clock') }}
+        {%- if settings.planning %}{{ month_names[settings.month - 1] }} · {{ format_hour(settings.hour) }}{% else %}Right now{% endif %}</span>
+    </span>
+    <span class="island-bar__toggle"><span>Change</span>{{ icon('chevron-down') }}</span>
+  </summary>
+  <form class="island-form" method="get" action="{{ request.path }}" data-island-form>
+    <fieldset class="island-form__group">
+      <legend class="island-form__label">Hemisphere</legend>
+      <div class="segmented">
+        {% for value in ('Northern', 'Southern') %}
+        <label class="segmented__option">
+          <input type="radio" name="hemisphere" value="{{ value }}"{% if settings.hemisphere.value == value %} checked{% endif %}>
+          <span>{{ value }}</span>
+        </label>
+        {% endfor %}
+      </div>
+    </fieldset>
+    <div class="island-form__group">
+      <label class="island-form__label" for="timezone-select">Time zone</label>
+      <div class="select">
+        <select id="timezone-select" name="timezone">
+          {% for group in timezone_groups %}
+          <optgroup label="{{ group.label }}">
+            {% for option in group.options %}
+            <option value="{{ option.value }}"{% if option.value == settings.timezone %} selected{% endif %}>{{ option.label }}</option>
+            {% endfor %}
+          </optgroup>
+          {% endfor %}
+        </select>
+        {{ select_chevron() }}
+      </div>
+      <button type="button" class="text-button" data-device-timezone hidden>{{ icon('locate-fixed') }}<span>Use this device's time zone</span></button>
+    </div>
+    <fieldset class="island-form__group">
+      <legend class="island-form__label">When</legend>
+      <div class="segmented">
+        <label class="segmented__option">
+          <input type="radio" name="when" value="now"{% if not settings.planning %} checked{% endif %}>
+          <span>Right now</span>
+        </label>
+        <label class="segmented__option">
+          <input type="radio" name="when" value="plan"{% if settings.planning %} checked{% endif %}>
+          <span>Plan a time</span>
+        </label>
+      </div>
+      <div class="island-form__plan">
+        <div class="select select--sm">
+          <select name="month" aria-label="Month">
+            {% for name in month_names %}
+            <option value="{{ loop.index }}"{% if loop.index == settings.month %} selected{% endif %}>{{ name }}</option>
+            {% endfor %}
+          </select>
+          {{ select_chevron() }}
+        </div>
+        <div class="select select--sm">
+          <select name="hour" aria-label="Hour">
+            {% for hour in range(24) %}
+            <option value="{{ hour }}"{% if hour == settings.hour %} selected{% endif %}>{{ format_hour(hour) }}</option>
+            {% endfor %}
+          </select>
+          {{ select_chevron() }}
+        </div>
+      </div>
+    </fieldset>
+    <div class="island-form__actions">
+      <button class="button button--primary" type="submit">Update</button>
+    </div>
+  </form>
+</details>
+{% endmacro %}
+
+{% macro critter_art(item, info) %}
+{% if item.shadow %}
+<span class="critter-art critter-art--shadow" aria-hidden="true">
+  <svg viewBox="0 0 64 64">
+    <ellipse class="critter-art__ring" cx="32" cy="38" rx="29" ry="12.5"></ellipse>
+    <g class="critter-art__shadow">
+      <ellipse cx="32" cy="38" rx="{{ item.shadow.rx }}" ry="{{ item.shadow.ry }}"></ellipse>
+      {% if item.shadow.fin %}
+      <path d="M26 {{ 40 - item.shadow.ry }}L32 {{ 29 - item.shadow.ry }}L38 {{ 40 - item.shadow.ry }}Z"></path>
+      {% endif %}
+    </g>
+  </svg>
+</span>
+{% else %}
+<span class="critter-art" aria-hidden="true">{{ icon(info.icon) }}</span>
+{% endif %}
+{% endmacro %}
+
+{% macro critter_card(item, info, settings) %}
+{% set critter = item.critter %}
+<li class="critter-card{% if item.available %} is-available{% endif %}" id="critter-{{ critter.number }}"
+    data-critter
+    data-number="{{ critter.number }}"
+    data-name="{{ critter.name|lower }}"
+    data-search="{{ (critter.name ~ ' ' ~ item.meta)|lower }}"
+    data-price="{{ critter.price }}"
+    data-available="{{ 1 if item.available else 0 }}"
+    data-new="{{ 1 if item.is_new else 0 }}"
+    data-leaving="{{ 1 if item.is_leaving else 0 }}"
+    data-months-left="{{ item.months_left }}"
+    data-tags="{{ item.tags|join(' ') }}">
+  <article class="critter-card__inner">
+    <div class="critter-card__head">
+      {{ critter_art(item, info) }}
+      <div class="critter-card__titles">
+        <h3 class="critter-card__name" data-critter-name>{{ critter.name }}</h3>
+        <p class="critter-card__meta">{{ item.meta }}</p>
+      </div>
+      <button type="button" class="catch-button" data-catch aria-pressed="false" aria-label="Caught {{ critter.name }}" title="Mark as caught">
+        {{ icon('check') }}
+      </button>
+    </div>
+    {% if item.badges %}
+    <ul class="badges">
+      {% for badge in item.badges %}
+      <li class="badge badge--{{ badge.tone }}"{% if badge.title %} title="{{ badge.title }}"{% endif %}>{{ icon(badge.icon) }}{{ badge.label }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    <div class="critter-card__price">
+      <span class="price">{{ icon('bell') }}<strong>{{ "{:,}".format(critter.price) }}</strong> Bells</span>
+      {% if item.seller_price %}
+      <span class="price__seller" title="{{ info.seller }} pays 150% for {{ info.plural }}">{{ info.seller }} {{ "{:,}".format(item.seller_price) }}</span>
+      {% endif %}
+      {% if item.speed_level is not none %}
+      <span class="speed" role="img" aria-label="Speed: {{ critter.speed }}" title="Speed: {{ critter.speed }}">
+        {% for level in range(5) %}<i{% if level < item.speed_level %} class="is-on"{% endif %}></i>{% endfor %}
+      </span>
+      {% endif %}
+    </div>
+    <div class="timeline">
+      <div class="timeline__row"><span class="timeline__label">Season</span><span class="timeline__value">{{ item.months_label }}</span></div>
+      <div class="months" role="img" aria-label="In season: {{ item.months_label }}">
+        {% for month in range(1, 13) %}
+        <span class="months__cell{% if month in item.months %} is-on{% endif %}{% if month == settings.month %} is-now{% endif %}">{{ month_abbrs[month - 1][0] }}</span>
+        {% endfor %}
+      </div>
+      <div class="timeline__row"><span class="timeline__label">Hours</span><span class="timeline__value">{{ item.hours_label }}</span></div>
+      <div class="hours" role="img" aria-label="Active hours: {{ item.hours_label }}">
+        {% for hour in range(24) %}<span class="hours__cell{% if hour in item.hours %} is-on{% endif %}{% if hour == settings.hour %} is-now{% endif %}"></span>{% endfor %}
+      </div>
+      {% if item.schedule %}
+      <p class="timeline__note">{{ icon('calendar-days') }}<span>{% for months, hours in item.schedule %}{{ months }}: {{ hours }}{% if not loop.last %} · {% endif %}{% endfor %}</span></p>
+      {% endif %}
+    </div>
+    <p class="critter-card__status">
+      {% if item.available %}
+      <span class="live-dot" aria-hidden="true"></span><strong>Out now</strong>{% if item.until_label %}<span class="critter-card__dot" aria-hidden="true">·</span>{{ item.until_label }}{% endif %}
+      {% else %}
+      {{ icon('clock' if item.in_season else 'calendar-days') }}{{ item.next_label }}
+      {% endif %}
+    </p>
+  </article>
+</li>
+{% endmacro %}
