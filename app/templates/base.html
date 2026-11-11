@@ -1,348 +1,106 @@
-{% extends 'bootstrap/base.html' %}
+<!doctype html>
+<html lang="en" class="no-js"
+  {%- if settings %} data-timezone="{{ settings.timezone }}" data-tz-offset="{{ settings.offset_minutes }}" data-island-hour="{{ settings.now.hour }}" data-island-month="{{ settings.now.month }}"
+  {%- if settings.detect_mode %} data-tz-detect="{{ settings.detect_mode }}"{% endif %}
+  {%- if settings.planning %} data-planning{% endif %}{% endif %}>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <script>document.documentElement.classList.replace("no-js", "js");</script>
+  {% if settings and settings.detect_mode %}
+  <script>{% include "partials/detect-timezone.js" %}</script>
+  {% endif %}
+  {% set page_title %}{% block title %}Critter Catcher · What can you catch right now?{% endblock %}{% endset %}
+  {% set page_description %}{% block description %}Live fish, bug, and sea creature availability for Animal Crossing: New Horizons, in your island's time zone and hemisphere.{% endblock %}{% endset %}
+  <title>{{ page_title }}</title>
+  <meta name="description" content="{{ page_description }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Critter Catcher">
+  <meta property="og:title" content="{{ page_title }}">
+  <meta property="og:description" content="{{ page_description }}">
+  <meta property="og:url" content="{{ canonical_url }}">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#fbf6e9" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#17140f" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="{{ url_for('favicon') }}" sizes="any">
+  <link rel="icon" type="image/png" sizes="192x192" href="{{ url_for('android_icon') }}">
+  <link rel="apple-touch-icon" href="{{ url_for('apple_touch_icon') }}">
+  <link rel="manifest" href="{{ asset_url('site.webmanifest') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400..900&display=swap">
+  <link rel="stylesheet" href="{{ asset_url('css/app.css') }}">
+  <script src="{{ asset_url('js/app.js') }}" defer></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H49DF1VGCR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H49DF1VGCR');
+  </script>
+</head>
+{% set active_kind = info.kind.value if info else None %}
+<body data-kind="{{ active_kind or 'home' }}">
+  <a class="skip-link" href="#main">Skip to content</a>
+  {% include "partials/icons.html" %}
 
-{% block scripts %}
-{{super()}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.28/moment-timezone-with-data.min.js"></script>
-
-<script>
-// Update the clock every second - exposed globally so it can be called from other templates
-window.updateClock = function() {
-    const clockElement = document.getElementById('navbar-clock');
-    if (!clockElement) return;
-    
-    // Get selected timezone or use browser's timezone
-    let timezone = localStorage.getItem('selected_timezone');
-    if (!timezone) {
-        timezone = moment.tz.guess();
-    }
-    
-    // Format time with timezone abbreviated name
-    const now = moment().tz(timezone);
-    const timeString = now.format('h:mm:ss A');
-    const dateString = now.format('ddd, MMM D');
-    const timezoneAbbr = now.format('z');
-    
-    // Update clock elements
-    document.getElementById('clock-time').textContent = timeString;
-    document.getElementById('clock-date').textContent = dateString;
-    document.getElementById('clock-timezone').textContent = timezoneAbbr;
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Start the clock
-    updateClock();
-    setInterval(updateClock, 1000);
-    
-    // Initialize tooltip for clock
-    if (typeof $().tooltip === 'function') {
-        $('#navbar-clock-container').tooltip();
-    }
-});
-</script>
-{% endblock %}
-{% block head %}
-{{super()}}
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-H49DF1VGCR"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-H49DF1VGCR');
-</script>
-<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-<link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-touch-icon.png')}}">
-<link rel="icon" type="image/png" sizes="192x192"  href="{{ url_for('static', filename='android-icon-192x192.png')}}">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{{ url_for('static', filename='custom.css') }}">
-
-<style>
-/* Animal Crossing inspired color palette */
-:root {
-    --ac-green: #62c76e;
-    --ac-light-green: #a6e29e;
-    --ac-dark-green: #45a053;
-    --ac-brown: #8a543a;
-    --ac-blue: #3fc0eb;
-    --ac-tan: #f8e9b5;
-    --ac-yellow: #f0dc65;
-}
-
-/* Overall theme */
-body {
-    background-color: #f5f9f5;
-    font-family: 'Roboto', sans-serif;
-}
-
-/* Navbar theming */
-.navbar {
-    min-height: 60px;
-}
-
-.navbar-default {
-    background-color: var(--ac-green);
-    border-color: var(--ac-dark-green);
-    border-radius: 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    min-height: 60px;
-}
-
-.navbar-default .navbar-header {
-    min-height: 60px;
-}
-
-.navbar-default .navbar-brand {
-    color: white;
-    font-weight: 500;
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
-    height: 60px;
-    line-height: 30px;
-}
-
-.navbar-default .navbar-nav {
-    display: flex;
-    align-items: center;
-    min-height: 60px;
-}
-
-.navbar-default .navbar-nav > li {
-    display: flex;
-    align-items: center;
-}
-
-.navbar-default .navbar-nav > li > a {
-    color: white;
-    font-weight: 500;
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
-    line-height: normal;
-    padding-top: 15px;
-    padding-bottom: 15px;
-}
-
-.navbar-default .navbar-brand:hover,
-.navbar-default .navbar-nav > li > a:hover {
-    color: var(--ac-tan);
-    background-color: var(--ac-dark-green);
-}
-
-.navbar-default .navbar-toggle .icon-bar {
-    background-color: white;
-}
-
-.navbar-default .navbar-toggle:hover,
-.navbar-default .navbar-toggle:focus {
-    background-color: var(--ac-dark-green);
-}
-
-/* Panel styling */
-.panel-default {
-    border-color: var(--ac-light-green);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-.panel-default > .panel-heading {
-    background-color: var(--ac-light-green);
-    border-color: var(--ac-green);
-    color: #333;
-}
-
-/* Button styling */
-.btn-default {
-    background-color: white;
-    border-color: var(--ac-green);
-    color: var(--ac-dark-green);
-}
-
-.btn-default.active,
-.btn-default:hover,
-.btn-default:active,
-.btn-default:focus {
-    background-color: var(--ac-green) !important;
-    border-color: var(--ac-dark-green) !important;
-    color: white !important;
-}
-
-/* Table styling */
-.table-bordered {
-    border: 1px solid var(--ac-light-green);
-}
-
-.table-bordered > thead > tr > th {
-    background-color: var(--ac-light-green);
-    border-bottom: 2px solid var(--ac-green);
-    color: #333;
-}
-
-.table-striped > tbody > tr:nth-of-type(odd) {
-    background-color: rgba(166, 226, 158, 0.1);
-}
-
-.table-hover > tbody > tr:hover {
-    background-color: rgba(166, 226, 158, 0.2);
-}
-
-/* Clock styling */
-#navbar-clock-container {
-    display: flex;
-    align-items: center;
-    height: 60px;
-    position: relative;
-    margin-right: 15px;
-}
-
-.navbar-right {
-    height: 60px;
-    display: flex;
-    align-items: center;
-}
-
-#navbar-clock {
-    display: flex;
-    align-items: center;
-    background-color: var(--ac-dark-green);
-    border: 1px solid var(--ac-dark-green);
-    border-radius: 20px;
-    padding: 6px 12px;
-    color: white;
-    font-weight: 500;
-    transition: background-color 0.2s;
-    cursor: default;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-#navbar-clock:hover {
-    background-color: #3d8a48;
-}
-
-.clock-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 8px;
-    color: var(--ac-yellow);
-}
-
-.clock-content {
-    display: flex;
-    flex-direction: column;
-}
-
-#clock-time {
-    font-size: 15px;
-    line-height: 1.2;
-    font-weight: 600;
-    color: white;
-}
-
-#clock-date {
-    font-size: 12px;
-    opacity: 0.9;
-    color: var(--ac-tan);
-}
-
-#clock-timezone {
-    font-size: 12px;
-    font-weight: bold;
-    color: white;
-    margin-left: 8px;
-    padding: 0 4px;
-    background-color: var(--ac-blue);
-    border-radius: 3px;
-    align-self: center;
-}
-
-@media (max-width: 767px) {
-    #navbar-clock-container {
-        display: block;
-        margin: 0;
-        text-align: center;
-        padding: 10px 0;
-        border-top: 1px solid var(--ac-dark-green);
-    }
-    
-    #navbar-clock {
-        display: inline-flex;
-        margin: 0;
-    }
-}
-
-/* Form controls */
-.form-control:focus {
-    border-color: var(--ac-green);
-    box-shadow: 0 0 8px rgba(98, 199, 110, 0.4);
-}
-
-/* Search input styling */
-.input-group-addon {
-    background-color: var(--ac-green);
-    border-color: var(--ac-green);
-    color: white;
-}
-
-/* Sortable table improvements */
-.sortable:hover {
-    background-color: var(--ac-green) !important;
-    color: white;
-    cursor: pointer;
-}
-
-.sortable.asc, .sortable.desc {
-    background-color: var(--ac-dark-green) !important;
-    color: white;
-}
-
-/* Highlight styling */
-.highlight {
-    background-color: var(--ac-yellow);
-    color: black;
-    border-radius: 2px;
-    padding: 0 2px;
-}
-</style>
-{% endblock %}
-{% block html_attribs %} lang="en"{% endblock %}
-{% block title %} {% if title %}{{title}} - Critter Catcher{% else %}Welcome to Critter Catcher!{% endif %} {% endblock %}
-
-{% block navbar %}
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="{{ url_for('index') }}">Critter Catcher</a>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="brand" href="{{ nav_url('index') }}">
+        <span class="brand__mark" aria-hidden="true"><svg class="icon"><use href="#i-leaf"></use></svg></span>
+        <span class="brand__name">Critter Catcher</span>
+      </a>
+      <nav class="site-nav" aria-label="Critters">
+        {% for kind_info in kinds %}
+        <a class="site-nav__link" href="{{ nav_url(kind_info.endpoint) }}" data-kind="{{ kind_info.kind.value }}"
+           {%- if active_kind == kind_info.kind.value %} aria-current="page"{% endif %}>
+          <svg class="icon" aria-hidden="true"><use href="#i-{{ kind_info.icon }}"></use></svg>
+          <span>{{ kind_info.title }}</span>
+        </a>
+        {% endfor %}
+      </nav>
+      {% if settings %}
+      <div class="island-clock" title="Time on your island ({{ settings.timezone_label }})">
+        <svg class="icon island-clock__icon" aria-hidden="true"><use href="#i-{{ 'sun' if 6 <= settings.now.hour < 18 else 'moon' }}"></use></svg>
+        <span class="island-clock__text">
+          <time class="island-clock__time" data-clock="time" datetime="{{ settings.now.isoformat(timespec='seconds') }}">{{ clock_time(settings.now) }}</time>
+          <span class="island-clock__date"><span data-clock="date">{{ clock_date(settings.now) }}</span> · {{ settings.now.tzname() }}</span>
+        </span>
       </div>
-  
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <li><a href="{{url_for('fish')}}">Fish</a></li>
-          <li><a href="{{url_for('bugs')}}">Bugs</a></li>
-          <li><a href="{{url_for('sea_creatures')}}">Sea Creatures</a></li>
-        </ul>
-        <div class="navbar-right">
-          <div id="navbar-clock-container" data-toggle="tooltip" data-placement="bottom" title="Current time in your selected timezone. Critters shown are available now.">
-            <div id="navbar-clock">
-              <span class="clock-icon glyphicon glyphicon-time"></span>
-              <div class="clock-content">
-                <span id="clock-time"></span>
-                <span id="clock-date"></span>
-              </div>
-              <span id="clock-timezone"></span>
-            </div>
-          </div>
-        </div>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
-{% endblock %}
+      {% endif %}
+    </div>
+  </header>
 
-{% block content %}
-  <div class=container>{% block app_content %}{% endblock %}</div>
-{% endblock %}
+  <main id="main" class="page">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <p class="site-footer__brand">
+        <svg class="icon" aria-hidden="true"><use href="#i-leaf"></use></svg>
+        Critter Catcher
+      </p>
+      <p>Made by <a href="https://github.com/jonathanfeng">Jonathan Feng</a> · <a href="https://github.com/jonathanfeng/new_horizons">Source</a> · Critter data checked against <a href="https://nookipedia.com/">Nookipedia</a></p>
+      <p class="site-footer__fine">Fan-made and not affiliated with Nintendo. Animal Crossing is a trademark of Nintendo.</p>
+    </div>
+  </footer>
+
+  <nav class="tabbar" aria-label="Sections">
+    <a class="tabbar__link" href="{{ nav_url('index') }}" data-kind="home"{% if not active_kind and request.endpoint == 'index' %} aria-current="page"{% endif %}>
+      <svg class="icon" aria-hidden="true"><use href="#i-house"></use></svg><span>Home</span>
+    </a>
+    {% for kind_info in kinds %}
+    <a class="tabbar__link" href="{{ nav_url(kind_info.endpoint) }}" data-kind="{{ kind_info.kind.value }}"
+       {%- if active_kind == kind_info.kind.value %} aria-current="page"{% endif %}>
+      <svg class="icon" aria-hidden="true"><use href="#i-{{ kind_info.icon }}"></use></svg><span>{{ 'Sea' if kind_info.kind.value == 'sea_creatures' else kind_info.title }}</span>
+    </a>
+    {% endfor %}
+  </nav>
+
+  <div class="toasts" data-toasts aria-live="polite"></div>
+</body>
+</html>

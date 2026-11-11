@@ -1,0 +1,41 @@
+number,name,price,shadow,speed,hours,min_catches,jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec
+1,Seaweed,600,Large,Stationary,All day,0,1,1,1,1,1,1,1,-,-,1,1,1
+2,Sea grapes,900,Small,Stationary,All day,0,-,-,-,-,-,1,1,1,1,-,-,-
+3,Sea cucumber,500,Medium,Very slow,All day,0,1,1,1,1,-,-,-,-,-,-,1,1
+4,Sea pig,10000,Small,Very fast,16 - 9,80,1,1,-,-,-,-,-,-,-,-,1,1
+5,Sea star,500,Small,Very slow,All day,0,1,1,1,1,1,1,1,1,1,1,1,1
+6,Sea urchin,1700,Small,Slow,All day,0,-,-,-,-,1,1,1,1,1,-,-,-
+7,Slate pencil urchin,2000,Medium,Medium,16 - 9,20,-,-,-,-,1,1,1,1,1,-,-,-
+8,Sea anemone,500,Large,Stationary,All day,0,1,1,1,1,1,1,1,1,1,1,1,1
+9,Moon jellyfish,600,Small,Very slow,All day,0,-,-,-,-,-,-,1,1,1,-,-,-
+10,Sea slug,600,Tiny,Very slow,All day,0,1,1,1,1,1,1,1,1,1,1,1,1
+11,Pearl oyster,2800,Small,Medium,All day,20,1,1,1,1,1,1,1,1,1,1,1,1
+12,Mussel,1500,Small,Slow,All day,0,-,-,-,-,-,1,1,1,1,1,1,1
+13,Oyster,1100,Small,Slow,All day,0,1,1,-,-,-,-,-,-,1,1,1,1
+14,Scallop,1200,Medium,Slow,All day,5,1,1,1,1,1,1,1,1,1,1,1,1
+15,Whelk,1000,Small,Slow,All day,0,1,1,1,1,1,1,1,1,1,1,1,1
+16,Turban shell,1000,Small,Slow,All day,0,-,-,1,1,1,-,-,-,1,1,1,1
+17,Abalone,2000,Medium,Medium,16 - 9,20,1,-,-,-,-,1,1,1,1,1,1,1
+18,Gigas giant clam,15000,Very large,Very fast,All day,80,-,-,-,-,1,1,1,1,1,-,-,-
+19,Chambered nautilus,1800,Medium,Medium,16 - 9,20,-,-,1,1,1,1,-,-,1,1,1,-
+20,Octopus,1200,Medium,Slow,All day,0,1,1,1,1,1,1,1,1,1,1,1,1
+21,Umbrella octopus,6000,Small,Fast,All day,40,-,-,1,1,1,-,-,-,1,1,1,-
+22,Vampire squid,10000,Medium,Very fast,16 - 9,80,-,-,-,-,1,1,1,1,-,-,-,-
+23,Firefly squid,1400,Tiny,Slow,21 - 4,0,-,-,1,1,1,1,-,-,-,-,-,-
+24,Gazami crab,2200,Medium,Medium,All day,20,-,-,-,-,-,1,1,1,1,1,1,-
+25,Dungeness crab,1900,Medium,Medium,All day,20,1,1,1,1,1,-,-,-,-,-,1,1
+26,Snow crab,6000,Large,Fast,All day,40,1,1,1,1,-,-,-,-,-,-,1,1
+27,Red king crab,8000,Large,Very fast,All day,80,1,1,1,-,-,-,-,-,-,-,1,1
+28,Acorn barnacle,600,Tiny,Stationary,All day,0,1,1,1,1,1,1,1,1,1,1,1,1
+29,Spider crab,12000,Very large,Very fast,All day,80,-,-,1,1,-,-,-,-,-,-,-,-
+30,Tiger prawn,3000,Small,Medium,16 - 9,20,-,-,-,-,-,1,1,1,1,-,-,-
+31,Sweet shrimp,1400,Small,Slow,16 - 9,0,1,1,-,-,-,-,-,-,1,1,1,1
+32,Mantis shrimp,2500,Small,Medium,16 - 9,20,1,1,1,1,1,1,1,1,1,1,1,1
+33,Spiny lobster,5000,Large,Fast,21 - 4,40,-,-,-,-,-,-,-,-,-,1,1,1
+34,Lobster,4500,Large,Fast,All day,40,1,-,-,1,1,1,-,-,-,-,-,1
+35,Giant isopod,12000,Medium,Very fast,9 - 16 & 21 - 4,80,-,-,-,-,-,-,1,1,1,1,-,-
+36,Horseshoe crab,2500,Medium,Medium,21 - 4,20,-,-,-,-,-,-,1,1,1,-,-,-
+37,Sea pineapple,1500,Small,Slow,All day,0,-,-,-,1,1,1,1,1,-,-,-,-
+38,Spotted garden eel,1100,Small,Slow,4 - 21,0,-,-,-,-,1,1,1,1,1,1,-,-
+39,Flatworm,700,Tiny,Very slow,16 - 9,0,-,-,-,-,-,-,-,1,1,-,-,-
+40,Venus' flower basket,5000,Medium,Fast,All day,40,1,1,-,-,-,-,-,-,-,1,1,1

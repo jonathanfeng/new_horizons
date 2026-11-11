@@ -1,8 +1,7 @@
 from flask import Flask
-from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
-bootstrap = Bootstrap(app)
+app.jinja_env.trim_blocks = True
+app.jinja_env.lstrip_blocks = True
 
-from app import routes
-from app import bin
+from app import routes  # noqa: E402,F401

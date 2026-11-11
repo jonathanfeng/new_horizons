@@ -1,56 +1,98 @@
 {% extends "base.html" %}
+{% from "partials/macros.html" import icon, island_bar with context %}
 
-{% block app_content %}
-{{super()}}
-<div class="jumbotron">
-    <h1>Welcome to Critter Catcher!</h1>
-    <p class="lead">Here you can find what critters are available to you at the current time and where to find them!</p>
-    <div class="btn-group" role="group">
-        <a class="btn btn-default btn-lg" href="{{url_for('fish')}}">
-            <span class="glyphicon glyphicon-tint" aria-hidden="true"></span> Fish
-        </a>
-        <a class="btn btn-default btn-lg" href="{{url_for('bugs')}}">
-            <span class="glyphicon glyphicon-bug" aria-hidden="true"></span> Bugs
-        </a>
-        <a class="btn btn-default btn-lg" href="{{url_for('sea_creatures')}}">
-            <span class="glyphicon glyphicon-tint" aria-hidden="true"></span> Sea Creatures
-        </a>
-    </div>
-</div>
+{% macro mini_card(item) %}
+{% set kind_info = kind_lookup[item.critter.kind] %}
+<li>
+  <a class="mini-card" href="{{ nav_url(kind_info.endpoint) }}#critter-{{ item.critter.number }}" data-kind="{{ kind_info.kind.value }}">
+    <span class="mini-card__icon" aria-hidden="true">{{ icon(kind_info.icon) }}</span>
+    <span class="mini-card__text">
+      <span class="mini-card__name">{{ item.critter.name }}</span>
+      <span class="mini-card__meta">{{ "{:,}".format(item.critter.price) }} Bells · {% if item.available %}<span class="mini-card__live">Out now</span>{% else %}{{ item.next_label }}{% endif %}</span>
+    </span>
+    {{ icon('arrow-right', 'mini-card__arrow') }}
+  </a>
+</li>
+{% endmacro %}
 
-<div class="row">
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Fish Collection</h3>
-            </div>
-            <div class="panel-body">
-                <p>Track and discover fish in different locations across your island. Find out which fish are currently available and their selling prices.</p>
-                <a href="{{url_for('fish')}}" class="btn btn-default">Go Fish</a>
-            </div>
-        </div>
+{% block content %}
+<section class="hero hero--{{ phase }}" aria-labelledby="hero-title">
+  <div class="hero__sky" aria-hidden="true">
+    <span class="hero__stars"></span>
+    <span class="hero__orb"></span>
+    <span class="hero__cloud hero__cloud--one"></span>
+    <span class="hero__cloud hero__cloud--two"></span>
+    <span class="hero__cloud hero__cloud--three"></span>
+  </div>
+  <div class="hero__content">
+    <p class="hero__eyebrow">
+      {% if settings.planning %}
+      {{ icon('calendar-clock') }}Planning · {{ month_names[settings.month - 1] }} at {{ format_hour(settings.hour) }}
+      {% else %}
+      <span class="live-dot" aria-hidden="true"></span>Live · <time data-clock="time">{{ clock_time(settings.now) }}</time> on your island
+      {% endif %}
+    </p>
+    <h1 class="hero__title" id="hero-title">What can you catch <span class="hero__highlight">{{ 'then?' if settings.planning else 'right now?' }}</span></h1>
+    <p class="hero__lede">Every fish, bug, and sea creature in Animal Crossing: New Horizons, matched to your hemisphere and your island's clock.</p>
+  </div>
+  <div class="hero__waves" aria-hidden="true">
+    <svg class="wave wave--back" viewBox="0 0 2880 120" preserveAspectRatio="none"><path d="M0 52Q90 30 180 52T360 52T540 52T720 52T900 52T1080 52T1260 52T1440 52T1620 52T1800 52T1980 52T2160 52T2340 52T2520 52T2700 52T2880 52V120H0Z"></path></svg>
+    <svg class="wave wave--mid" viewBox="0 0 2880 120" preserveAspectRatio="none"><path d="M0 70Q90 52 180 70T360 70T540 70T720 70T900 70T1080 70T1260 70T1440 70T1620 70T1800 70T1980 70T2160 70T2340 70T2520 70T2700 70T2880 70V120H0Z"></path></svg>
+    <svg class="wave wave--front" viewBox="0 0 2880 120" preserveAspectRatio="none"><path d="M0 88Q90 74 180 88T360 88T540 88T720 88T900 88T1080 88T1260 88T1440 88T1620 88T1800 88T1980 88T2160 88T2340 88T2520 88T2700 88T2880 88V120H0Z"></path></svg>
+  </div>
+</section>
+
+<div class="container">
+  {{ island_bar(settings, timezone_groups) }}
+
+  <section class="kind-grid" aria-label="Critters out {{ 'then' if settings.planning else 'now' }}">
+    {% for summary in summaries %}
+    <a class="kind-card" href="{{ nav_url(summary.info.endpoint) }}" data-kind="{{ summary.info.kind.value }}" style="--i: {{ loop.index0 }}">
+      <span class="kind-card__head">
+        <span class="kind-card__icon" aria-hidden="true">{{ icon(summary.info.icon) }}</span>
+        <span class="kind-card__dex" data-dex="{{ summary.info.kind.value }}" data-total="{{ summary.total }}" hidden>{{ icon('trophy') }}<span data-dex-count>0</span>/{{ summary.total }}</span>
+      </span>
+      <span class="kind-card__count"><span data-count-to="{{ summary.available }}">{{ summary.available }}</span><small>of {{ summary.total }}</small></span>
+      <span class="kind-card__title">{{ summary.info.title }} out {{ 'then' if settings.planning else 'now' }}</span>
+      <span class="kind-card__facts">
+        {% if summary.new %}<span class="fact fact--new">{{ icon('sparkles') }}{{ summary.new|length }} new</span>{% endif %}
+        {% if summary.leaving %}<span class="fact fact--leaving">{{ icon('hourglass') }}{{ summary.leaving|length }} leaving</span>{% endif %}
+      </span>
+      {% if summary.top %}
+      <span class="kind-card__top">
+        <span class="kind-card__top-label">Most valuable</span>
+        {% for item in summary.top %}
+        <span class="top-row"><span class="top-row__name">{{ item.critter.name }}</span><span class="top-row__price">{{ icon('bell') }}{{ "{:,}".format(item.critter.price) }}</span></span>
+        {% endfor %}
+      </span>
+      {% endif %}
+      <span class="kind-card__cta">See all {{ summary.info.plural }}{{ icon('arrow-right') }}</span>
+    </a>
+    {% endfor %}
+  </section>
+
+  {% if leaving %}
+  <section class="spotlight spotlight--leaving" aria-labelledby="leaving-title">
+    <div class="section-head">
+      <h2 class="section-head__title" id="leaving-title">{{ icon('hourglass') }}Last chance in {{ month_names[settings.month - 1] }}</h2>
+      <p class="section-head__text">Their season ends this month. Catch them before {{ month_names[settings.month % 12] }} rolls around.</p>
     </div>
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Bug Collection</h3>
-            </div>
-            <div class="panel-body">
-                <p>Catch bugs throughout the day and night. Learn which bugs are active during the current time and how much they're worth.</p>
-                <a href="{{url_for('bugs')}}" class="btn btn-default">Find Bugs</a>
-            </div>
-        </div>
+    <ul class="spotlight__list">
+      {% for item in leaving %}{{ mini_card(item) }}{% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if new %}
+  <section class="spotlight spotlight--new" aria-labelledby="new-title">
+    <div class="section-head">
+      <h2 class="section-head__title" id="new-title">{{ icon('sparkles') }}New in {{ month_names[settings.month - 1] }}</h2>
+      <p class="section-head__text">Just arrived for the {{ settings.hemisphere.value }} Hemisphere.</p>
     </div>
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Sea Creature Collection</h3>
-            </div>
-            <div class="panel-body">
-                <p>Dive into the ocean to find sea creatures! See which ones are swimming around right now and check their value.</p>
-                <a href="{{url_for('sea_creatures')}}" class="btn btn-default">Dive In</a>
-            </div>
-        </div>
-    </div>
+    <ul class="spotlight__list">
+      {% for item in new %}{{ mini_card(item) }}{% endfor %}
+    </ul>
+  </section>
+  {% endif %}
 </div>
 {% endblock %}

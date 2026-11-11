@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% from "partials/macros.html" import icon, island_bar, critter_card, select_chevron with context %}
+{% set month_name = month_names[settings.month - 1] %}
+
+{% block title %}{{ info.title }} out now · Critter Catcher{% endblock %}
+{% block description %}See which of the {{ summary.total }} {{ info.plural }} in Animal Crossing: New Horizons are out right now, with prices, seasons, and hours for your hemisphere.{% endblock %}
+
+{% block content %}
+<div class="container">
+  <section class="page-head" aria-labelledby="page-title">
+    <span class="page-head__icon" aria-hidden="true">{{ icon(info.icon) }}</span>
+    <div class="page-head__text">
+      <p class="page-head__eyebrow">{{ info.tagline }}</p>
+      <h1 class="page-head__title" id="page-title">{{ info.title }}</h1>
+      <p class="page-head__lede">
+        {% if settings.planning %}
+        <strong>{{ summary.available }}</strong> of {{ summary.total }} {{ info.plural }} are out in {{ month_name }} at {{ format_hour(settings.hour) }} in the {{ settings.hemisphere.value }} Hemisphere.
+        {% else %}
+        <strong>{{ summary.available }}</strong> of {{ summary.total }} {{ info.plural }} are out right now in the {{ settings.hemisphere.value }} Hemisphere.
+        {% endif %}
+      </p>
+    </div>
+    <div class="dex" data-dex="{{ info.kind.value }}" data-total="{{ summary.total }}">
+      <svg class="dex__ring" viewBox="0 0 48 48" aria-hidden="true">
+        <circle class="dex__track" cx="24" cy="24" r="20"></circle>
+        <circle class="dex__fill" cx="24" cy="24" r="20" pathLength="100"></circle>
+      </svg>
+      <span class="dex__text"><strong data-dex-count>0</strong><span>of {{ summary.total }}</span></span>
+      <span class="dex__label">caught</span>
+    </div>
+  </section>
+
+  {% if summary.new or summary.leaving or summary.top %}
+  <div class="stat-chips">
+    {% if summary.new %}
+    <button type="button" class="stat-chip stat-chip--new" data-focus="new" aria-pressed="false">{{ icon('sparkles') }}<strong>{{ summary.new|length }}</strong> new in {{ month_name }}</button>
+    {% endif %}
+    {% if summary.leaving %}
+    <button type="button" class="stat-chip stat-chip--leaving" data-focus="leaving" aria-pressed="false">{{ icon('hourglass') }}<strong>{{ summary.leaving|length }}</strong> leave after {{ month_name }}</button>
+    {% endif %}
+    {% if summary.top %}
+    <span class="stat-chip stat-chip--top">{{ icon('trophy') }}Top catch: <strong>{{ summary.top[0].critter.name }}</strong> · {{ "{:,}".format(summary.top[0].critter.price) }} Bells</span>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  {% if settings.timezone_invalid %}
+  <p class="notice">{{ icon('compass') }}<span>We couldn't recognize the time zone “{{ settings.timezone_invalid }}”, so times are shown in UTC. Pick yours under <strong>Your island</strong>.</span></p>
+  {% elif settings.timezone_source == 'fallback' %}
+  <p class="notice notice--quiet">{{ icon('compass') }}<span>Times are shown in UTC. Pick your time zone under <strong>Your island</strong>.</span></p>
+  {% endif %}
+
+  {{ island_bar(settings, timezone_groups) }}
+
+  <div class="toolbar" data-toolbar>
+    <div class="search">
+      {{ icon('search', 'search__icon') }}
+      <input class="search__input" type="search" data-search placeholder="Search {{ info.plural }} or places" aria-label="Search {{ info.plural }}" autocomplete="off" spellcheck="false" enterkeyhint="search">
+      <kbd class="search__kbd" aria-hidden="true">/</kbd>
+      <button type="button" class="search__clear" data-search-clear aria-label="Clear search" hidden>{{ icon('x') }}</button>
+    </div>
+    <div class="toolbar__controls">
+      <div class="segmented segmented--sm" role="radiogroup" aria-label="Show">
+        <label class="segmented__option">
+          <input type="radio" name="view" value="available" data-view checked>
+          <span>Out {{ 'then' if settings.planning else 'now' }} <b>{{ summary.available }}</b></span>
+        </label>
+        <label class="segmented__option">
+          <input type="radio" name="view" value="all" data-view>
+          <span>All <b>{{ summary.total }}</b></span>
+        </label>
+      </div>
+      <div class="select select--sm">
+        <select data-sort aria-label="Sort by">
+          <option value="value">Most valuable</option>
+          <option value="leaving">Leaving soonest</option>
+          <option value="name">Name</option>
+          <option value="number">Critterpedia order</option>
+        </select>
+        {{ select_chevron() }}
+      </div>
+      <label class="switch">
+        <input type="checkbox" data-hide-caught>
+        <span class="switch__track" aria-hidden="true"></span>
+        <span>Hide caught</span>
+      </label>
+    </div>
+    <div class="chips" role="group" aria-label="{{ 'Speed' if info.kind.value == 'sea_creatures' else 'Where to look' }}">
+      <button type="button" class="chip" data-tag="" aria-pressed="true">All</button>
+      {% for chip in info.filters %}
+      <button type="button" class="chip" data-tag="{{ chip.value }}" aria-pressed="false">{{ chip.label }}</button>
+      {% endfor %}
+    </div>
+    <p class="toolbar__count" data-count aria-live="polite">{{ summary.available }} {{ info.singular if summary.available == 1 else info.plural }}</p>
+  </div>
+
+  <ul class="critter-grid" data-critter-grid data-view="available" data-kind="{{ info.kind.value }}" data-singular="{{ info.singular }}" data-plural="{{ info.plural }}">
+    {% for item in statuses %}
+    {{ critter_card(item, info, settings) }}
+    {% endfor %}
+  </ul>
+
+  <div class="empty-state" data-empty hidden>
+    <span class="empty-state__art" aria-hidden="true">{{ icon(info.icon) }}</span>
+    <h2 class="empty-state__title" data-empty-title>Nothing matches</h2>
+    <p class="empty-state__text" data-empty-text>Try a different search or filter.</p>
+    <button type="button" class="button" data-reset>{{ icon('refresh-cw') }}Reset filters</button>
+  </div>
+</div>
+{% endblock %}

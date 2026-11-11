@@ -1,0 +1,81 @@
+number,name,price,location,shadow,hours,min_catches,jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec
+1,Bitterling,900,River,1,All day,0,1,1,1,-,-,-,-,-,-,-,1,1
+2,Pale chub,200,River,1,9 - 16,0,1,1,1,1,1,1,1,1,1,1,1,1
+3,Crucian carp,160,River,2,All day,0,1,1,1,1,1,1,1,1,1,1,1,1
+4,Dace,240,River,3,16 - 9,0,1,1,1,1,1,1,1,1,1,1,1,1
+5,Carp,300,Pond,4,All day,0,1,1,1,1,1,1,1,1,1,1,1,1
+6,Koi,4000,Pond,4,16 - 9,20,1,1,1,1,1,1,1,1,1,1,1,1
+7,Goldfish,1300,Pond,1,All day,0,1,1,1,1,1,1,1,1,1,1,1,1
+8,Pop-eyed goldfish,1300,Pond,1,9 - 16,0,1,1,1,1,1,1,1,1,1,1,1,1
+9,Ranchu goldfish,4500,Pond,2,9 - 16,20,1,1,1,1,1,1,1,1,1,1,1,1
+10,Killifish,300,Pond,1,All day,0,-,-,-,1,1,1,1,1,-,-,-,-
+11,Crawfish,200,Pond,2,All day,0,-,-,-,1,1,1,1,1,1,-,-,-
+12,Soft-shelled turtle,3750,River,4,16 - 9,20,-,-,-,-,-,-,-,1,1,-,-,-
+13,Snapping turtle,5000,River,4,21 - 4,0,-,-,-,1,1,1,1,1,1,1,-,-
+14,Tadpole,100,Pond,1,All day,0,-,-,1,1,1,1,1,-,-,-,-,-
+15,Frog,120,Pond,2,All day,0,-,-,-,-,1,1,1,1,-,-,-,-
+16,Freshwater goby,400,River,2,16 - 9,0,1,1,1,1,1,1,1,1,1,1,1,1
+17,Loach,400,River,2,All day,0,-,-,1,1,1,-,-,-,-,-,-,-
+18,Catfish,800,Pond,4,16 - 9,0,-,-,-,-,1,1,1,1,1,1,-,-
+19,Giant snakehead,5500,Pond,4,9 - 16,50,-,-,-,-,-,1,1,1,-,-,-,-
+20,Bluegill,180,River,2,9 - 16,0,1,1,1,1,1,1,1,1,1,1,1,1
+21,Yellow perch,300,River,3,All day,0,1,1,1,-,-,-,-,-,-,1,1,1
+22,Black bass,400,River,4,All day,0,1,1,1,1,1,1,1,1,1,1,1,1
+23,Tilapia,800,River,3,All day,0,-,-,-,-,-,1,1,1,1,1,-,-
+24,Pike,1800,River,5,All day,20,-,-,-,-,-,-,-,-,1,1,1,1
+25,Pond smelt,400,River,2,All day,0,1,1,-,-,-,-,-,-,-,-,-,1
+26,Sweetfish,900,River,3,All day,0,-,-,-,-,-,-,1,1,1,-,-,-
+27,Cherry salmon,1000,River (clifftop),3,16 - 9,0,-,-,1,1,1,1,-,-,All day,All day,All day,-
+28,Char,3800,River (clifftop) & pond,3,16 - 9,20,-,-,1,1,1,1,-,-,All day,All day,All day,-
+29,Golden trout,15000,River (clifftop),3,16 - 9,100,-,-,1,1,1,-,-,-,1,1,1,-
+30,Stringfish,15000,River (clifftop),5,16 - 9,100,1,1,1,-,-,-,-,-,-,-,-,1
+31,Salmon,700,River (mouth),4,All day,0,-,-,-,-,-,-,-,-,1,-,-,-
+32,King salmon,1800,River (mouth),6,All day,20,-,-,-,-,-,-,-,-,1,-,-,-
+33,Mitten crab,2000,River,2,16 - 9,20,-,-,-,-,-,-,-,-,1,1,1,-
+34,Guppy,1300,River,1,9 - 16,0,-,-,-,1,1,1,1,1,1,1,1,-
+35,Nibble fish,1500,River,1,9 - 16,20,-,-,-,-,1,1,1,1,1,-,-,-
+36,Angelfish,3000,River,2,16 - 9,20,-,-,-,-,1,1,1,1,1,1,-,-
+37,Betta,2500,River,2,9 - 16,20,-,-,-,-,1,1,1,1,1,1,-,-
+38,Neon tetra,500,River,1,9 - 16,0,-,-,-,1,1,1,1,1,1,1,1,-
+39,Rainbowfish,800,River,1,9 - 16,0,-,-,-,-,1,1,1,1,1,1,-,-
+40,Piranha,2500,River,2,9 - 16 & 21 - 4,20,-,-,-,-,-,1,1,1,1,-,-,-
+41,Arowana,10000,River,4,16 - 9,50,-,-,-,-,-,1,1,1,1,-,-,-
+42,Dorado,15000,River,5,4 - 21,100,-,-,-,-,-,1,1,1,1,-,-,-
+43,Gar,6000,Pond,5,16 - 9,50,-,-,-,-,-,1,1,1,1,-,-,-
+44,Arapaima,10000,River,6,16 - 9,50,-,-,-,-,-,1,1,1,1,-,-,-
+45,Saddled bichir,4000,River,4,21 - 4,20,-,-,-,-,-,1,1,1,1,-,-,-
+46,Sturgeon,10000,River (mouth),6,All day,20,1,1,1,-,-,-,-,-,1,1,1,1
+47,Sea butterfly,1000,Sea,1,All day,0,1,1,1,-,-,-,-,-,-,-,-,1
+48,Sea horse,1100,Sea,1,All day,0,-,-,-,1,1,1,1,1,1,1,1,-
+49,Clown fish,650,Sea,1,All day,0,-,-,-,1,1,1,1,1,1,-,-,-
+50,Surgeonfish,1000,Sea,2,All day,0,-,-,-,1,1,1,1,1,1,-,-,-
+51,Butterfly fish,1000,Sea,2,All day,0,-,-,-,1,1,1,1,1,1,-,-,-
+52,Napoleonfish,10000,Sea,6,4 - 21,50,-,-,-,-,-,-,1,1,-,-,-,-
+53,Zebra turkeyfish,500,Sea,3,All day,0,-,-,-,1,1,1,1,1,1,1,1,-
+54,Blowfish,5000,Sea,3,21 - 4,20,1,1,-,-,-,-,-,-,-,-,1,1
+55,Puffer fish,250,Sea,3,All day,0,-,-,-,-,-,-,1,1,1,-,-,-
+56,Anchovy,200,Sea,2,4 - 21,0,1,1,1,1,1,1,1,1,1,1,1,1
+57,Horse mackerel,150,Sea,2,All day,0,1,1,1,1,1,1,1,1,1,1,1,1
+58,Barred knifejaw,5000,Sea,3,All day,20,-,-,1,1,1,1,1,1,1,1,1,-
+59,Sea bass,400,Sea,5,All day,0,1,1,1,1,1,1,1,1,1,1,1,1
+60,Red snapper,3000,Sea,4,All day,0,1,1,1,1,1,1,1,1,1,1,1,1
+61,Dab,300,Sea,3,All day,0,1,1,1,1,-,-,-,-,-,1,1,1
+62,Olive flounder,800,Sea,5,All day,0,1,1,1,1,1,1,1,1,1,1,1,1
+63,Squid,500,Sea,3,All day,0,1,1,1,1,1,1,1,1,-,-,-,1
+64,Moray eel,2000,Sea,narrow,All day,20,-,-,-,-,-,-,-,1,1,1,-,-
+65,Ribbon eel,600,Sea,narrow,All day,0,-,-,-,-,-,1,1,1,1,1,-,-
+66,Tuna,7000,Pier,6,All day,50,1,1,1,1,-,-,-,-,-,-,1,1
+67,Blue marlin,10000,Pier,6,All day,50,1,1,1,1,-,-,1,1,1,-,1,1
+68,Giant trevally,4500,Pier,5,All day,20,-,-,-,-,1,1,1,1,1,1,-,-
+69,Mahi-mahi,6000,Pier,5,All day,50,-,-,-,-,1,1,1,1,1,1,-,-
+70,Ocean sunfish,4000,Sea,6 fin,4 - 21,20,-,-,-,-,-,-,1,1,1,-,-,-
+71,Ray,3000,Sea,5,4 - 21,20,-,-,-,-,-,-,-,1,1,1,1,-
+72,Saw shark,12000,Sea,6 fin,16 - 9,50,-,-,-,-,-,1,1,1,1,-,-,-
+73,Hammerhead shark,8000,Sea,6 fin,16 - 9,20,-,-,-,-,-,1,1,1,1,-,-,-
+74,Great white shark,15000,Sea,6 fin,16 - 9,50,-,-,-,-,-,1,1,1,1,-,-,-
+75,Whale shark,13000,Sea,6 fin,All day,50,-,-,-,-,-,1,1,1,1,-,-,-
+76,Suckerfish,1500,Sea,4 fin,All day,20,-,-,-,-,-,1,1,1,1,-,-,-
+77,Football fish,2500,Sea,4,16 - 9,20,1,1,1,-,-,-,-,-,-,-,1,1
+78,Oarfish,9000,Sea,6,All day,50,1,1,1,1,1,-,-,-,-,-,-,1
+79,Barreleye,15000,Sea,2,21 - 4,100,1,1,1,1,1,1,1,1,1,1,1,1
+80,Coelacanth,15000,Sea (rain or snow),6,All day,100,1,1,1,1,1,1,1,1,1,1,1,1

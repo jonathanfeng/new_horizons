@@ -1,0 +1,81 @@
+number,name,price,location,weather,hours,min_catches,jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec
+1,Common butterfly,160,Flying,no rain,4 - 19,0,1,1,1,1,1,1,-,-,1,1,1,1
+2,Yellow butterfly,160,Flying,no rain,4 - 19,0,-,-,1,1,1,1,-,-,1,1,-,-
+3,Tiger butterfly,240,Flying,no rain,4 - 19,0,-,-,1,1,1,1,1,1,1,-,-,-
+4,Peacock butterfly,2500,"Flying near blue, purple & black flowers",no rain,4 - 19,20,-,-,1,1,1,1,-,-,-,-,-,-
+5,Common bluebottle,300,Flying,no rain,4 - 19,0,-,-,-,1,1,1,1,1,-,-,-,-
+6,Paper kite butterfly,1000,Flying near flowers,no rain,8 - 19,0,1,1,1,1,1,1,1,1,1,1,1,1
+7,Great purple emperor,3000,Flying near flowers,no rain,4 - 19,50,-,-,-,-,1,1,1,1,-,-,-,-
+8,Monarch butterfly,140,Flying near flowers,no rain,4 - 17,0,-,-,-,-,-,-,-,-,1,1,1,-
+9,Emperor butterfly,4000,Flying near flowers,no rain,17 - 8,20,1,1,1,-,-,1,1,1,1,-,-,1
+10,Agrias butterfly,3000,Flying near flowers,no rain,8 - 17,20,-,-,-,1,1,1,1,1,1,-,-,-
+11,Rajah Brooke's birdwing,2500,Flying near flowers,no rain,8 - 17,20,1,1,-,1,1,1,1,1,1,-,-,1
+12,Queen Alexandra's birdwing,4000,Flying near flowers,no rain,8 - 16,50,-,-,-,-,1,1,1,1,1,-,-,-
+13,Moth,130,Flying near light sources,no rain,19 - 4,0,1,1,1,1,1,1,1,1,1,1,1,1
+14,Atlas moth,3000,On trees (any kind),any,19 - 4,20,-,-,-,1,1,1,1,1,1,-,-,-
+15,Madagascan sunset moth,2500,Flying near flowers,no rain,8 - 16,20,-,-,-,1,1,1,1,1,1,-,-,-
+16,Long locust,200,On the ground,any,8 - 19,0,-,-,-,1,1,1,1,1,1,1,1,-
+17,Migratory locust,600,On the ground,any,8 - 19,20,-,-,-,-,-,-,-,1,1,1,1,-
+18,Rice grasshopper,400,On the ground,any,8 - 19,0,-,-,-,-,-,-,-,1,1,1,1,-
+19,Grasshopper,160,On the ground,no rain,8 - 17,0,-,-,-,-,-,-,1,1,1,-,-,-
+20,Cricket,130,On the ground,no rain,17 - 8,0,-,-,-,-,-,-,-,-,1,1,1,-
+21,Bell cricket,430,On the ground,no rain,17 - 8,0,-,-,-,-,-,-,-,-,1,1,-,-
+22,Mantis,430,On flowers,no rain,8 - 17,0,-,-,1,1,1,1,1,1,1,1,1,-
+23,Orchid mantis,2400,On white flowers,no rain,8 - 17,20,-,-,1,1,1,1,1,1,1,1,1,-
+24,Honeybee,200,Flying near flowers,no rain,8 - 17,0,-,-,1,1,1,1,1,-,-,-,-,-
+25,Wasp,2500,Shaking non-fruit hardwood or cedar trees,any,All day,0,1,1,1,1,1,1,1,1,1,1,1,1
+26,Brown cicada,250,On trees (hardwood and cedar),any,8 - 17,0,-,-,-,-,-,-,1,1,-,-,-,-
+27,Robust cicada,300,On trees (hardwood and cedar),any,8 - 17,0,-,-,-,-,-,-,1,1,-,-,-,-
+28,Giant cicada,500,On trees (hardwood and cedar),any,8 - 17,20,-,-,-,-,-,-,1,1,-,-,-,-
+29,Walker cicada,400,On trees (hardwood and cedar),any,8 - 17,0,-,-,-,-,-,-,-,1,1,-,-,-
+30,Evening cicada,550,On trees (hardwood and cedar),any,4 - 8 & 16 - 19,0,-,-,-,-,-,-,1,1,-,-,-,-
+31,Cicada shell,10,On trees (hardwood and cedar),any,All day,50,-,-,-,-,-,-,1,1,-,-,-,-
+32,Red dragonfly,180,Flying near water,no rain,8 - 19,0,-,-,-,-,-,-,-,-,1,1,-,-
+33,Darner dragonfly,230,Flying near water,no rain,8 - 17,0,-,-,-,1,1,1,1,1,1,1,-,-
+34,Banded dragonfly,4500,Flying near water,no rain,8 - 17,50,-,-,-,-,1,1,1,1,1,1,-,-
+35,Damselfly,500,Flying near water,no rain,All day,0,1,1,-,-,-,-,-,-,-,-,1,1
+36,Firefly,300,Flying near water,no rain,19 - 4,0,-,-,-,-,-,1,-,-,-,-,-,-
+37,Mole cricket,500,Underground,any,All day,0,1,1,1,1,1,-,-,-,-,-,1,1
+38,Pondskater,130,On rivers and ponds,any,8 - 19,0,-,-,-,-,1,1,1,1,1,-,-,-
+39,Diving beetle,800,On rivers and ponds,any,8 - 19,0,-,-,-,-,1,1,1,1,1,-,-,-
+40,Giant water bug,2000,On rivers and ponds,any,19 - 8,50,-,-,-,1,1,1,1,1,1,-,-,-
+41,Stinkbug,120,On flowers,no rain,All day,0,-,-,1,1,1,1,1,1,1,1,-,-
+42,Man-faced stink bug,1000,On flowers,no rain,19 - 8,20,-,-,1,1,1,1,1,1,1,1,-,-
+43,Ladybug,200,On flowers,no rain,8 - 17,0,-,-,1,1,1,1,-,-,-,1,-,-
+44,Tiger beetle,1500,On the ground,no rain,All day,20,-,1,1,1,1,1,1,1,1,1,-,-
+45,Jewel beetle,2400,On tree stumps,no rain,All day,20,-,-,-,1,1,1,1,1,-,-,-,-
+46,Violin beetle,450,On tree stumps,no rain,All day,0,-,-,-,-,1,1,-,-,1,1,1,-
+47,Citrus long-horned beetle,350,On tree stumps,no rain,All day,0,1,1,1,1,1,1,1,1,1,1,1,1
+48,Rosalia batesi beetle,3000,On tree stumps,no rain,All day,20,-,-,-,-,1,1,1,1,1,-,-,-
+49,Blue weevil beetle,800,On palm trees,any,All day,0,-,-,-,-,-,-,1,1,-,-,-,-
+50,Dung beetle,3000,Pushing snowballs,any,All day,0,1,1,-,-,-,-,-,-,-,-,-,1
+51,Earth-boring dung beetle,300,On the ground,any,All day,0,-,-,-,-,-,-,1,1,1,-,-,-
+52,Scarab beetle,10000,On trees (any kind),any,23 - 8,50,-,-,-,-,-,-,1,1,-,-,-,-
+53,Drone beetle,200,On trees (any kind),any,All day,0,-,-,-,-,-,1,1,1,-,-,-,-
+54,Goliath beetle,8000,On palm trees,any,17 - 8,100,-,-,-,-,-,1,1,1,1,-,-,-
+55,Saw stag,2000,On trees (any kind),any,All day,0,-,-,-,-,-,-,1,1,-,-,-,-
+56,Miyama stag,1000,On trees (any kind),any,All day,0,-,-,-,-,-,-,1,1,-,-,-,-
+57,Giant stag,10000,On trees (any kind),any,23 - 8,50,-,-,-,-,-,-,1,1,-,-,-,-
+58,Rainbow stag,6000,On trees (any kind),any,19 - 8,50,-,-,-,-,-,1,1,1,1,-,-,-
+59,Cyclommatus stag,8000,On palm trees,any,17 - 8,100,-,-,-,-,-,-,1,1,-,-,-,-
+60,Golden stag,12000,On palm trees,any,17 - 8,100,-,-,-,-,-,-,1,1,-,-,-,-
+61,Giraffe stag,12000,On palm trees,any,17 - 8,100,-,-,-,-,-,-,1,1,-,-,-,-
+62,Horned dynastid,1350,On trees (any kind),any,17 - 8,0,-,-,-,-,-,-,1,1,-,-,-,-
+63,Horned atlas,8000,On palm trees,any,17 - 8,100,-,-,-,-,-,-,1,1,-,-,-,-
+64,Horned elephant,8000,On palm trees,any,17 - 8,100,-,-,-,-,-,-,1,1,-,-,-,-
+65,Horned hercules,12000,On palm trees,any,17 - 8,100,-,-,-,-,-,-,1,1,-,-,-,-
+66,Walking stick,600,On trees (any kind),any,4 - 8 & 17 - 19,20,-,-,-,-,-,-,1,1,1,1,1,-
+67,Walking leaf,600,Disguised under trees,any,All day,20,-,-,-,-,-,-,1,1,1,-,-,-
+68,Bagworm,600,Shaking trees (hardwood and cedar),any,All day,0,1,1,1,1,1,1,1,1,1,1,1,1
+69,Ant,80,"On spoiled turnips, candy & lollipops",any,All day,0,1,1,1,1,1,1,1,1,1,1,1,1
+70,Hermit crab,1000,Disguised on shoreline,any,19 - 8,0,1,1,1,1,1,1,1,1,1,1,1,1
+71,Wharf roach,200,On beach rocks,any,All day,0,1,1,1,1,1,1,1,1,1,1,1,1
+72,Fly,60,Flying near trash or rotten turnips,any,All day,0,1,1,1,1,1,1,1,1,1,1,1,1
+73,Mosquito,130,Flying,no rain,17 - 4,0,-,-,-,-,-,1,1,1,1,-,-,-
+74,Flea,70,On villagers,any,All day,0,-,-,-,1,1,1,1,1,1,1,1,-
+75,Snail,250,On rocks and bushes,rain only,All day,0,1,1,1,1,1,1,1,1,1,1,1,1
+76,Pill bug,250,From hitting rocks,any,23 - 16,0,1,1,1,1,1,1,-,-,1,1,1,1
+77,Centipede,300,From hitting rocks,any,16 - 23,0,1,1,1,1,1,1,-,-,1,1,1,1
+78,Spider,600,Shaking trees,any,19 - 8,0,1,1,1,1,1,1,1,1,1,1,1,1
+79,Tarantula,8000,On the ground,any,19 - 4,0,1,1,1,1,-,-,-,-,-,-,1,1
+80,Scorpion,8000,On the ground,any,19 - 4,0,-,-,-,-,1,1,1,1,1,1,-,-
