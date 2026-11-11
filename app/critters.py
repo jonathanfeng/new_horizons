@@ -41,21 +41,21 @@ SPEED_TAGS = {"Stationary": "stationary", "Very slow": "slow", "Slow": "slow", "
 
 KINDS: dict[CritterKind, KindInfo] = {
     CritterKind.FISH: KindInfo(
-        kind=CritterKind.FISH, endpoint="fish", title="Fish", singular="fish", plural="fish", icon="fish",
-        tagline="Cast a line in rivers, ponds, the sea, and off the pier.", seller="C.J.",
+        kind=CritterKind.FISH, endpoint="fish", title="Fish", page_title="Fish Fetcher", cta="Go Fish",
+        singular="fish", plural="fish", icon="fish", seller="C.J.",
         filters=(FilterChip("river", "River"), FilterChip("pond", "Pond"), FilterChip("sea", "Sea"),
                  FilterChip("pier", "Pier")),
     ),
     CritterKind.BUGS: KindInfo(
-        kind=CritterKind.BUGS, endpoint="bugs", title="Bugs", singular="bug", plural="bugs", icon="bug",
-        tagline="Net them on flowers, trees, rocks, and riverbanks.", seller="Flick",
+        kind=CritterKind.BUGS, endpoint="bugs", title="Bugs", page_title="Bug Bounties", cta="Find Bugs",
+        singular="bug", plural="bugs", icon="bug", seller="Flick",
         filters=(FilterChip("flying", "Flying"), FilterChip("trees", "Trees"), FilterChip("flowers", "Flowers"),
                  FilterChip("ground", "Ground"), FilterChip("water", "Water & beach"), FilterChip("other", "Other")),
     ),
     CritterKind.SEA_CREATURES: KindInfo(
-        kind=CritterKind.SEA_CREATURES, endpoint="sea_creatures", title="Sea Creatures", singular="sea creature",
-        plural="sea creatures", icon="shell", tagline="Put on a wet suit and dive wherever you spot bubbles.",
-        seller=None,
+        kind=CritterKind.SEA_CREATURES, endpoint="sea_creatures", title="Sea Creatures",
+        page_title="Sea Creature Search", cta="Dive In", singular="sea creature", plural="sea creatures",
+        icon="shell", seller=None,
         filters=(FilterChip("stationary", "Stationary"), FilterChip("slow", "Slow"), FilterChip("medium", "Medium"),
                  FilterChip("fast", "Fast")),
     ),

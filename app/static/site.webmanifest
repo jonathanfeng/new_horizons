@@ -1,7 +1,7 @@
 {
   "name": "Critter Catcher",
   "short_name": "Critters",
-  "description": "Live fish, bug, and sea creature availability for Animal Crossing: New Horizons.",
+  "description": "Here you can find what critters are available to you at the current time and where to find them!",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#fbf6e9",

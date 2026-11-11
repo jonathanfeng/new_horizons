@@ -32,8 +32,8 @@
       <span class="live-dot" aria-hidden="true"></span>Live · <time data-clock="time">{{ clock_time(settings.now) }}</time> on your island
       {% endif %}
     </p>
-    <h1 class="hero__title" id="hero-title">What can you catch <span class="hero__highlight">{{ 'then?' if settings.planning else 'right now?' }}</span></h1>
-    <p class="hero__lede">Every fish, bug, and sea creature in Animal Crossing: New Horizons, matched to your hemisphere and your island's clock.</p>
+    <h1 class="hero__title" id="hero-title">Welcome to Critter Catcher!</h1>
+    <p class="hero__lede">Here you can find what critters are available to you at the current time and where to find them!</p>
   </div>
   <div class="hero__waves" aria-hidden="true">
     <svg class="wave wave--back" viewBox="0 0 2880 120" preserveAspectRatio="none"><path d="M0 52Q90 30 180 52T360 52T540 52T720 52T900 52T1080 52T1260 52T1440 52T1620 52T1800 52T1980 52T2160 52T2340 52T2520 52T2700 52T2880 52V120H0Z"></path></svg>
@@ -66,7 +66,7 @@
         {% endfor %}
       </span>
       {% endif %}
-      <span class="kind-card__cta">See all {{ summary.info.plural }}{{ icon('arrow-right') }}</span>
+      <span class="kind-card__cta">{{ summary.info.cta }}{{ icon('arrow-right') }}</span>
     </a>
     {% endfor %}
   </section>
@@ -74,8 +74,7 @@
   {% if leaving %}
   <section class="spotlight spotlight--leaving" aria-labelledby="leaving-title">
     <div class="section-head">
-      <h2 class="section-head__title" id="leaving-title">{{ icon('hourglass') }}Last chance in {{ month_names[settings.month - 1] }}</h2>
-      <p class="section-head__text">Their season ends this month. Catch them before {{ month_names[settings.month % 12] }} rolls around.</p>
+      <h2 class="section-head__title" id="leaving-title">{{ icon('hourglass') }}Leaving after {{ month_names[settings.month - 1] }}</h2>
     </div>
     <ul class="spotlight__list">
       {% for item in leaving %}{{ mini_card(item) }}{% endfor %}
@@ -87,7 +86,6 @@
   <section class="spotlight spotlight--new" aria-labelledby="new-title">
     <div class="section-head">
       <h2 class="section-head__title" id="new-title">{{ icon('sparkles') }}New in {{ month_names[settings.month - 1] }}</h2>
-      <p class="section-head__text">Just arrived for the {{ settings.hemisphere.value }} Hemisphere.</p>
     </div>
     <ul class="spotlight__list">
       {% for item in new %}{{ mini_card(item) }}{% endfor %}
