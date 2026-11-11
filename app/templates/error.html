@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% from "partials/macros.html" import icon %}
 
-{% block title %}{{ 'Page not found' if code == 404 else 'Something went wrong' }} · Critter Catcher{% endblock %}
+{% block title %}{{ 'Page not found' if code == 404 else 'Something went wrong' }} - Critter Catcher{% endblock %}
 
 {% block content %}
 <div class="container">
   <section class="error-page">
     <span class="error-page__art" aria-hidden="true">{{ icon('compass' if code == 404 else 'leaf') }}</span>
     <p class="error-page__code">{{ code }}</p>
-    <h1 class="error-page__title">{{ "This path's all overgrown." if code == 404 else "Something went wrong on our end." }}</h1>
-    <p class="error-page__text">{{ "There's nothing to catch here. Head back and try fish, bugs, or sea creatures." if code == 404 else "Give it a moment and try again." }}</p>
+    <h1 class="error-page__title">{{ "Page not found" if code == 404 else "Something went wrong" }}</h1>
+    <p class="error-page__text">{{ "That page doesn't exist." if code == 404 else "Please try again in a moment." }}</p>
     <a class="button button--primary" href="{{ url_for('index') }}">{{ icon('house') }}Back to Critter Catcher</a>
   </section>
 </div>

@@ -1,6 +1,6 @@
 # New Horizons Critter Catcher
 
-See which fish, bugs, and sea creatures you can catch right now in Animal Crossing: New Horizons, for your island's hemisphere and time zone.\
+Small web app that takes user's current time and calculates what bugs and fish are available in Animal Crossing New Horizon.\
 Built using Flask.
 
 It is currently hosted on:

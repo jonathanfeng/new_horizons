@@ -1000,19 +1000,13 @@ ul {
 }
 
 .hero__title {
-  max-width: 12ch;
+  max-width: 16ch;
   margin-top: 18px;
   font-size: clamp(2.6rem, 7.2vw, 5.2rem);
   font-weight: 900;
   letter-spacing: -0.035em;
   line-height: 1.02;
   animation: rise 0.8s 0.08s var(--ease-out) both;
-}
-
-.hero__highlight {
-  white-space: nowrap;
-  background: linear-gradient(180deg, transparent 64%, color-mix(in srgb, var(--bell) 70%, transparent) 64%, color-mix(in srgb, var(--bell) 70%, transparent) 90%, transparent 90%);
-  padding-inline: 0.05em;
 }
 
 .hero__lede {
@@ -1520,11 +1514,6 @@ label.island-form__label {
   color: var(--leaf);
 }
 
-.section-head__text {
-  color: var(--ink-faint);
-  font-weight: 700;
-}
-
 .spotlight__list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -1638,14 +1627,7 @@ label.island-form__label {
   height: 38px;
 }
 
-.page-head__eyebrow {
-  color: var(--accent-ink);
-  font-weight: 800;
-  font-size: 0.92rem;
-}
-
 .page-head__title {
-  margin-top: 2px;
   font-size: clamp(2.1rem, 5vw, 3.1rem);
   font-weight: 900;
   letter-spacing: -0.035em;

@@ -41,10 +41,11 @@ class KindInfo:
     kind: CritterKind
     endpoint: str
     title: str
+    page_title: str
+    cta: str
     singular: str
     plural: str
     icon: str
-    tagline: str
     seller: str | None
     filters: tuple[FilterChip, ...]
 

@@ -2,16 +2,15 @@
 {% from "partials/macros.html" import icon, island_bar, critter_card, select_chevron with context %}
 {% set month_name = month_names[settings.month - 1] %}
 
-{% block title %}{{ info.title }} out now · Critter Catcher{% endblock %}
-{% block description %}See which of the {{ summary.total }} {{ info.plural }} in Animal Crossing: New Horizons are out right now, with prices, seasons, and hours for your hemisphere.{% endblock %}
+{% block title %}{{ info.page_title }} - Critter Catcher{% endblock %}
+{% block description %}Here you can find what {{ info.plural }} are available to you at the current time and where to find them!{% endblock %}
 
 {% block content %}
 <div class="container">
   <section class="page-head" aria-labelledby="page-title">
     <span class="page-head__icon" aria-hidden="true">{{ icon(info.icon) }}</span>
     <div class="page-head__text">
-      <p class="page-head__eyebrow">{{ info.tagline }}</p>
-      <h1 class="page-head__title" id="page-title">{{ info.title }}</h1>
+      <h1 class="page-head__title" id="page-title">{{ info.page_title }}</h1>
       <p class="page-head__lede">
         {% if settings.planning %}
         <strong>{{ summary.available }}</strong> of {{ summary.total }} {{ info.plural }} are out in {{ month_name }} at {{ format_hour(settings.hour) }} in the {{ settings.hemisphere.value }} Hemisphere.
