@@ -1,6 +1,7 @@
 *.pyc
 __pycache__/
 .venv/
+venv/
 .DS_Store
 .vscode/settings.json
 .vercel
